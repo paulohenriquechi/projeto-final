@@ -8,7 +8,12 @@ use Illuminate\Http\Request;
 class AlbumController extends Controller
 {
     public function show(){
-        $album = Album::all();
+        $albums = Album::all();
+        return $albums;
+    }
+
+    public function album($album){
+        $album = Album::where('album_name', $album)->firstOrFail();
         return $album;
     }
 }

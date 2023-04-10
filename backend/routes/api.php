@@ -19,13 +19,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('backend', function(){
-    return '{
-        "userId": 1,
-        "id": 1,
-        "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-        "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
-    }';
-});
-
 Route::get('albums', [AlbumController::class, 'show']);
+Route::get('albums/{album}', [AlbumController::class, 'album']);
+// Route::get('about', [...]); irá mostrar a biografia da banda
+// Route::get('songs', [...]); irá mostrar todas as músicas da banda
+// Route::get('songs/{song}', [...]); irá mostrar a música escolhida

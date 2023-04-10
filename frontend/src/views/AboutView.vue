@@ -5,7 +5,6 @@
       <img width="250" :src="album.album_cover" alt="album.album_name">
       <p>Release Date: {{ album.release_date }}</p>
       <p>{{ album.description }}</p>
-      
     </div>
 
   </div>
