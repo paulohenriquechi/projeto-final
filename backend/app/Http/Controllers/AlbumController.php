@@ -13,7 +13,7 @@ class AlbumController extends Controller
     }
 
     public function album($album){
-        $album = Album::where('album_name', $album)->firstOrFail();
+        $album = Album::where('album_url', $album)->firstOrFail();
         return $album;
     }
 }

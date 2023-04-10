@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('albums', function (Blueprint $table) {
+        Schema::create('songs', function (Blueprint $table) {
             $table->id();
-            $table->string("album_name");
-            $table->string("album_url");
-            $table->string("album_cover")->nullable();
-            $table->string("release_date");
-            $table->text("description")->nullable();
-            $table->string("album_type");
+            $table->timestamps();
         });
     }
 
@@ -27,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('albums');
+        Schema::dropIfExists('songs');
     }
 };
