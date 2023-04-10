@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class AlbumController extends Controller
 {
-    public function show(){
+    public function albums(){
         $albums = Album::all();
         return $albums;
     }
