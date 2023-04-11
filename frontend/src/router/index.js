@@ -26,6 +26,11 @@ const routes = [
     path: '/dirt',
     name: 'dirt',
     component: () => import(/* webpackChunkName: "about" */ '../views/DirtView.vue')
+  },
+  {
+    path: '/albums/:album',
+    name: 'album',
+    component: () => import(/* webpackChunkName: "about" */ '../views/AlbumView.vue')
   }
   
 ]

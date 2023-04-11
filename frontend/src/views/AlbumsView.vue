@@ -4,7 +4,7 @@
       <div id="grid">
           <div v-for="album in albums" :key="album.id" class="card">
             <img :src="album.album_cover" alt="album.album_name">
-            <p><router-link :to="album.album_url">{{ album.album_name }}</router-link></p>
+            <p><router-link :to="'albums/'+album.album_url">{{ album.album_name }}</router-link></p>
             <!-- <p>Release Date: {{ album.release_date }}</p>
             <p>{{ album.description }}</p> -->
           </div>
