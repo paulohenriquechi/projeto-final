@@ -6,9 +6,9 @@
       <p>{{ albumInfo.album_type }}</p>
       <p>{{ albumInfo.release_date }}</p>
       <h3>Tracklist</h3>
-        <ul>
-            <li v-for="song in songs" :key="song.song_url">{{ song.song_name }}</li>
-        </ul>
+        <ol>
+            <li v-for="song in songs" :key="song.song_url"><router-link :to="'../songs/'+song.song_url">{{ song.song_name }}</router-link> - {{ song.length }}</li>
+        </ol>
     </div>
 </template>
 <script>

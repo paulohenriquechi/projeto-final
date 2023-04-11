@@ -18,19 +18,24 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/AlbumsView.vue')
   },
   {
+    path: '/albums/:album',
+    name: 'album',
+    component: () => import(/* webpackChunkName: "about" */ '../views/AlbumView.vue')
+  },
+  {
     path: '/songs',
     name: 'songs',
     component: () => import(/* webpackChunkName: "about" */ '../views/SongsView.vue')
   },
   {
+    path: '/songs/:song',
+    name: 'song',
+    component: () => import(/* webpackChunkName: "about" */ '../views/SongView.vue')
+  },
+  {
     path: '/dirt',
     name: 'dirt',
     component: () => import(/* webpackChunkName: "about" */ '../views/DirtView.vue')
-  },
-  {
-    path: '/albums/:album',
-    name: 'album',
-    component: () => import(/* webpackChunkName: "about" */ '../views/AlbumView.vue')
   }
   
 ]

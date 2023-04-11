@@ -2,7 +2,7 @@
     <div class="about">
       <h2>Songs</h2>
       <div v-for="song in songs" :key="song.song_url">
-        <p>#{{ song.song_number }} - <router-link :to="song.song_url">{{ song.song_name }}</router-link> - {{ song.length }}</p>
+        <p>#{{ song.song_number }} - <router-link :to="'songs/'+song.song_url">{{ song.song_name }}</router-link> - {{ song.length }}</p>
       </div>
       <hr>
     </div>
