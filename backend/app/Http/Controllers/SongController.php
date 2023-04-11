@@ -14,6 +14,7 @@ class SongController extends Controller
 
     public function song($song){
         $song = Song::where('song_url', $song)->firstOrFail();
+        // $album = $song->album()->first();
         return $song;
     }
 }

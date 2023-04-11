@@ -8,9 +8,13 @@
       <p>{{ album.description }}</p>
       <p>{{ album.songs }}</p>
     </div>
-    <h2>Songs</h2>
+    <hr>
+    <h2>Facelift</h2>
+    <img width="250" :src="album.album_cover" alt="album.album_type">
+    
+    <!-- <h2>Songs</h2>
     <h3>Facelift</h3>
-    <p v-for="song in album" :key="song.song_name">{{ song.song_name }} - {{ song.length }}</p>
+    <p v-for="song in album" :key="song.song_name">{{ song.song_name }} - {{ song.length }}</p> -->
   </div>
 </template>
 <script>
@@ -28,6 +32,18 @@
         this.albums = res
         console.log(this.albums)
       },
+      // async getSongs(){
+      //   const req = await fetch("http://127.0.0.1:8000/api/songs")
+      //   const res = await req.json()
+      //   this.songs = res
+      //   console.log(this.songs)
+      // },
+      // async getSong(song){
+      //   const req = await fetch(`http://127.0.0.1:8000/api/albums/${album}`)
+      //   const res = await req.json()
+      //   this.song = res
+      //   console.log(this.song)
+      // },
       async getAlbum(album){
         const req = await fetch(`http://127.0.0.1:8000/api/albums/${album}`)
         const res = await req.json()

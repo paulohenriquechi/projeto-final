@@ -29,3 +29,5 @@ Route::get('songs', [SongController::class, 'songs']);
 
 // irá mostrar a música escolhida
 Route::get('songs/{song}', [SongController::class, 'song']);
+
+Route::get('album/{albumSongs}', [AlbumController::class, 'albumSongs']);
