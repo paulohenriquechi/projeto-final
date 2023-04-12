@@ -9,6 +9,10 @@ class Album extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'description' => 'array'
+    ];
+
     public function songs(){
         return $this->hasMany(Song::class, 'album', 'album_name');
     }

@@ -12,12 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('albums', function (Blueprint $table) {
-            // $table->id();
             $table->string("album_name")->primary();
             $table->string("album_url");
             $table->string("album_cover")->nullable();
-            $table->string("release_date");
-            $table->text("description")->nullable();
+            $table->string("release_year");
+            $table->json("description")->nullable();
             $table->string("album_type");
         });
     }
