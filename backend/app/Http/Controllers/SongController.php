@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Song;
+use App\Models\Album;
 use Illuminate\Http\Request;
 
 class SongController extends Controller
@@ -13,8 +14,9 @@ class SongController extends Controller
     }
 
     public function song($song){
-        $song = Song::where('song_url', $song)->firstOrFail();
-        // $album = $song->album()->first();
-        return $song;
+        $songInfo = Song::where('song_url', $song)->firstOrFail();
+        $albumInfo = Album::where('album_name', $songInfo->album)->get();
+        $songInfo->albumInfo = $albumInfo;
+        return $songInfo;
     }
 }
