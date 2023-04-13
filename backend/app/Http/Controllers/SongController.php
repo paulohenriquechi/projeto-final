@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 class SongController extends Controller
 {
     public function songs(){
-        $songs = Song::all();
+        $songs = Song::orderBy('song_name', 'asc')->get();
+        // ->all()
         return $songs;
     }
 

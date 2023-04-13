@@ -1,11 +1,13 @@
 <template>
-    <div class="about">
-      <h2>Songs</h2>
+    <main id="main">
+      <h1 class="title">Songs</h1>
       <div v-for="song in songs" :key="song.song_url">
-        <p>#{{ song.song_number }} - <router-link :to="'songs/'+song.song_url">{{ song.song_name }}</router-link> - {{ song.length }}</p>
+        <p><router-link :to="'songs/'+song.song_url">{{ song.song_name }}</router-link> - 
+           <!-- <router-link :to="'albums/'+song.album">{{ song.album }}</router-link> -->
+           {{ song.album }}
+          - {{ song.length }}</p>
       </div>
-      <hr>
-    </div>
+    </main>
   </template>
 <script>
     export default{

@@ -1,17 +1,15 @@
 <template>
     <section class="banner-container">
-        <div class="center" :style="'display: '+display+';'">
-            <router-link class="link" :to="'/'+pageUrl">{{ pageName }}</router-link>
+        <div class="center">
+            <h2 class="text">{{ text }}</h2>
         </div>
     </section>
 </template>
 <script>
     export default{
-        name: "Banner",
+        name: "BannerText",
         props: {
-            pageUrl: String,
-            pageName: String,
-            display: String
+            text: String
         }
     }
 </script>
@@ -24,7 +22,7 @@
         height: 100vh;
         background-repeat: no-repeat;
         background-size: cover;
-        /* background-image: url(); */
+        background-position: center;
     }
     .center{
         position: absolute;
@@ -32,17 +30,19 @@
         left: 50%;
         transform: translate(-50%, -50%);
         width: 100%;
-        height: 20%;
+        height: 100%;
         padding: 10px;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        background-color: transparent;
+        /* background-color: transparent; */
+        background-color: rgba(0, 0, 0, 0.5);
     }
-    .link{
+    .text{
         background-color: transparent;
-        border: 1px solid white;
         padding: 20px 40px;
+        font-size: 5em;
+        word-spacing: 8px;
     }
 </style>

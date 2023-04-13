@@ -35,5 +35,6 @@
     .link:hover{
         color: #fff;
         text-decoration: underline;
+        cursor: pointer;
     }
 </style>
