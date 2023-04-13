@@ -1,32 +1,34 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link> |
-    <router-link to="/albums">Albums</router-link> |
-    <router-link to="/songs">Songs</router-link>
-  </nav>
+  <Header/>
   <router-view/>
+  <Footer/>
 </template>
 
+<script>
+  import Header from './components/Header.vue'
+  import Footer from './components/Footer.vue';
+  export default{
+    components: {
+      Header,
+      Footer
+    }
+  }
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  /* text-align: center; */
-  color: #2c3e50;
+*{
+  font-family: 'Cinzel', serif;
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  list-style: none;
+  background-color: #000;
+  color: #fff;
+  box-sizing: border-box;
 }
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
+.title{
+      text-align: center;
+      padding: 10px 0;
+      margin: 10px; 
+    }
 </style>

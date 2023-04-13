@@ -15,7 +15,7 @@ class AlbumController extends Controller
 
     public function album($album){
         $albumInfo = Album::where('album_url', $album)->firstOrFail();
-        $songsInfo = Song::where('album', $album)->get();
+        $songsInfo = Song::where('album', $albumInfo->album_name)->get();
         $albumInfo->songs = $songsInfo;
         return $albumInfo;
     }
