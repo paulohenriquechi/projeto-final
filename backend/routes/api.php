@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\SongController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,3 +33,6 @@ Route::get('songs/{song}', [SongController::class, 'song']);
 
 // ficou inutil, consegui transferir diretamente os dados das musicas
 // Route::get('album/{albumSongs}', [AlbumController::class, 'albumSongs']);
+
+// cadastro de usuário
+Route::post('register', [UserController::class, 'register']);
