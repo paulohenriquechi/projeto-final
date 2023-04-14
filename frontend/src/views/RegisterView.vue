@@ -8,17 +8,14 @@
             <div id="right">
                 <h1>Register</h1>
                 <form action="">
-                    <input type="text" placeholder="name" id="name" v-model="dataForm.name">
-                    <div>erro</div>
+                    <input type="text" placeholder="username" id="username" v-model="dataForm.username">
+                    <p v-if="errors.username">{{errors.username[0]}}</p>
                     <input type="text" placeholder="email" id="email" v-model="dataForm.email">
-                    <div>erro</div>
-
+                    <p v-if="errors.email">{{errors.email[0]}}</p>
                     <input type="text" placeholder="password" id="password" v-model="dataForm.password">
-                    <div>erro</div>
-
+                    <p v-if="errors.password">{{errors.password[0]}}</p>
                     <input type="text" placeholder="password confirmation" id="password_confirmation" v-model="dataForm.password_confirmation">
-                    <div>erro</div>
-
+                    <p v-if="errors.password_confirmation">{{errors.password_confirmation[0]}}</p>
                     <button type="button" @click="register()">Register</button>
                 </form>
             </div>
@@ -54,7 +51,8 @@
         name: "Register",
         data(){ 
             return{
-                dataForm: {}
+                dataForm: {},
+                errors: {}
             }
         },
         methods: {
@@ -66,9 +64,9 @@
                     console.log("Erros: ")
                     console.log(error)
                     //retornando erros
-                    let erro = JSON.parse(error.response.request.response).errors
+                    this.errors = JSON.parse(error.response.request.response).errors
                     // buscando erros individuais para futuramente colocar como mensagem de erro
-                    console.log(erro)
+                    console.log(this.errors)
                 })
             }
         }

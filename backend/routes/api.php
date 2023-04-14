@@ -36,3 +36,5 @@ Route::get('songs/{song}', [SongController::class, 'song']);
 
 // cadastro de usuário
 Route::post('register', [UserController::class, 'register']);
+// login de usuario
+Route::post('login', [UserController::class, 'login']);
