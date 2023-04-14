@@ -1,5 +1,6 @@
 <template>
     <main id="main">
+    <!-- <pre>{{ $route }}</pre> -->
         <div id="main-container">
             <div id="left">
                 <img src="https://media.tenor.com/xF2W3Yo4w-0AAAAM/aic-alice-in-chains.gif" alt="">
@@ -7,7 +8,7 @@
             <div id="right">
                 <h1>Register</h1>
                 <form action="">
-                    <input type="text" placeholder="username" id="username" v-model="dataForm.username">
+                    <input type="text" placeholder="name" id="name" v-model="dataForm.name">
                     <div>erro</div>
                     <input type="text" placeholder="email" id="email" v-model="dataForm.email">
                     <div>erro</div>
