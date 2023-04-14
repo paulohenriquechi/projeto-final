@@ -7,18 +7,18 @@
             <div id="right">
                 <h1>Register</h1>
                 <form action="">
-                    <input type="text" placeholder="name">
+                    <input type="text" placeholder="username" id="username" v-model="dataForm.username">
                     <div>erro</div>
-                    <input type="text" placeholder="email">
-                    <div>erro</div>
-
-                    <input type="text" placeholder="password">
+                    <input type="text" placeholder="email" id="email" v-model="dataForm.email">
                     <div>erro</div>
 
-                    <input type="text" placeholder="repeat password">
+                    <input type="text" placeholder="password" id="password" v-model="dataForm.password">
                     <div>erro</div>
 
-                    <button>Register</button>
+                    <input type="text" placeholder="password confirmation" id="password_confirmation" v-model="dataForm.password_confirmation">
+                    <div>erro</div>
+
+                    <button type="button" @click="register()">Register</button>
                 </form>
             </div>
         </div>
@@ -48,7 +48,30 @@
     </main>
 </template>
 <script>
-
+    import axios from "axios"
+    export default {
+        name: "Register",
+        data(){ 
+            return{
+                dataForm: {}
+            }
+        },
+        methods: {
+            register(){
+                axios.post(`${process.env.VUE_APP_URL}register`, this.dataForm).then((res)=>{
+                    console.log("Caso passe nas validações")
+                    console.log(res.data)
+                }).catch((error)=>{
+                    console.log("Erros: ")
+                    console.log(error)
+                    //retornando erros
+                    let erro = JSON.parse(error.response.request.response).errors
+                    // buscando erros individuais para futuramente colocar como mensagem de erro
+                    console.log(erro)
+                })
+            }
+        }
+    }
 </script>
 <style scoped>
         #main{
