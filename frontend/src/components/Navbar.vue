@@ -5,6 +5,8 @@
             <router-link class="link" to="/about">About</router-link>
             <router-link class="link" to="/albums">Albums</router-link>
             <router-link class="link" to="/songs">Songs</router-link>
+            <router-link class="link" to="/register">Register</router-link>
+            <router-link class="link" to="/login">Login</router-link>
         </div>
   </nav>
 </template>
