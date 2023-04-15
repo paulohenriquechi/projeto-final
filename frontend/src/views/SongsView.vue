@@ -7,6 +7,7 @@
            {{ song.album }}
           - {{ song.length }}</p>
       </div>
+
     </main>
   </template>
 <script>
@@ -21,10 +22,12 @@
           const req = await fetch("http://127.0.0.1:8000/api/songs")
           const res = await req.json()
           this.songs = res
+          console.log(this.songs)
         }
       },
       mounted(){
         this.getSongs()
+
       }
     }
 </script>

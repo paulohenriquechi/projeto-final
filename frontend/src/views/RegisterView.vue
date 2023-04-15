@@ -1,24 +1,32 @@
 <template>
     <main id="main">
-    <!-- <pre>{{ $route }}</pre> -->
         <div id="main-container">
-            <div id="left">
-                <img src="https://media.tenor.com/xF2W3Yo4w-0AAAAM/aic-alice-in-chains.gif" alt="">
-            </div>
-            <div id="right">
-                <h1>Register</h1>
-                <form action="">
-                    <input type="text" placeholder="username" id="username" v-model="dataForm.username">
-                    <p v-if="errors.username">{{errors.username[0]}}</p>
-                    <input type="text" placeholder="email" id="email" v-model="dataForm.email">
-                    <p v-if="errors.email">{{errors.email[0]}}</p>
-                    <input type="text" placeholder="password" id="password" v-model="dataForm.password">
-                    <p v-if="errors.password">{{errors.password[0]}}</p>
-                    <input type="text" placeholder="password confirmation" id="password_confirmation" v-model="dataForm.password_confirmation">
-                    <p v-if="errors.password_confirmation">{{errors.password_confirmation[0]}}</p>
-                    <button type="button" @click="register()">Register</button>
+            <form action="" id="form-container">
+                    <h1 class="title">Register</h1>
+                    <div class="input-container">
+                        <label for="username">Username</label>
+                        <input type="text" placeholder="username" id="username" v-model="dataForm.username">
+                        <p class="error" v-if="errors.username">{{errors.username[0]}}</p>
+                    </div>
+                    <div class="input-container">
+                        <label for="email">Email</label>
+                        <input type="text" placeholder="email" id="email" v-model="dataForm.email">
+                        <p class="error" v-if="errors.email">{{errors.email[0]}}</p>
+                    </div>
+                    <div class="input-container">
+                        <label for="Password">Password</label>
+                        <input type="text" placeholder="password" id="password" v-model="dataForm.password">
+                        <p class="error" v-if="errors.password">{{errors.password[0]}}</p>
+                    </div>
+                    <div class="input-container">
+                        <label for="password_confirmation">Password Confirm</label>
+                        <input type="text" placeholder="password confirmation" id="password_confirmation" v-model="dataForm.password_confirmation">
+                        <p class="error" v-if="errors.password_confirmation">{{errors.password_confirmation[0]}}</p>
+                    </div>
+                    <div class="input-container">
+                        <button id="button" type="button" @click="register()">Register</button>
+                    </div>
                 </form>
-            </div>
         </div>
         <!-- <h1 class="title transparent">Register</h1>
         <div id="form-container">
@@ -73,22 +81,107 @@
     }
 </script>
 <style scoped>
-        #main{
+        #main-container{
+            background-image: url("https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77701280174.jpg");
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #form-container{
+            width: 50%;
+            height: 75%;
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 1px solid #383837;
+            padding: 20px;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+        .input-container{
+            background-color: transparent;
+            width: 75%;
+            margin: 0 auto;
+        }
+        .input-container>input, .input-container>button{
+            width: 100%;
+            margin: 5px 0;
+            padding: 10px;
+            border-style: none;
+            transition: all .2s linear;
+            border: 1px solid #fff;
+            
+        }
+        .input-container>input:focus{
+            background-color: #3333339a;
+            /* 
+            border-style: none;
+            border: 1px solid #fff;
+            border-radius: 0px; */
+            /* border: 1px solid white; */
+            outline: hidden;
+            outline-style: none;
+            outline-width: 0;
+        }
+        .input-container>input:active{
+            border: 1px solid white;
+            outline: hidden;
+            outline-style: none;
+            outline-width: 0;
+        }
+
+        #button{
+            cursor: pointer;
+        }
+        button:hover{
+            transition: all .2s linear;
+            background-color: #3333339a;
+        }
+        .error{
+            color: darkred;
+            /* margin-top: 5px; */
+            background-color: transparent;
+            text-decoration: underline;
+            text-align: end;
+        }
+        label{
+            background: transparent;
+            /* padding: 0 10px; */
+        }
+        .title{
+            background-color: transparent;
+            margin: 0;
+            font-weight: 300;
+        }
+
+
+
+
+        /* #main{
             display: flex;
             margin: 5% 0;
+            background-image: url("https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77701280174.jpg");
+            background-size: cover;
+            
+            
         }
         #main-container{
             margin: 10px auto;
-            width: 70%;
-            /* border: 1px solid #fff; */
+            width: 50%;
+            border: 1px solid #fff;
             display: flex;
             padding: 10px;
-        }
-        #left{
+            display: flex;
+            flex-direction: column;
+            background-color: transparent;
+        } */
+        /* #left{
             width: 50%;
-            /* border: 1px solid #fff; */
-        }
-        #left>img{
+            border: 1px solid #fff;
+        } */
+        /* #left>img{
             width: 100%;
             height: 100%;
         }
@@ -99,8 +192,8 @@
             align-items: center;
             justify-content: center;
             border: 1px solid white;
-        }
-        form{
+        } */
+        /* form{
             display: flex;
             flex-direction: column;
             width: 100%;
@@ -111,7 +204,7 @@
             border-style: none;
             border: 1px solid #fff;
             /* width: 100%; */
-        }
+        /* } */ 
 
     /* #main{
         width: 100vw;
