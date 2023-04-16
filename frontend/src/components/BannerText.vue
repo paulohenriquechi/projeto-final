@@ -23,6 +23,7 @@
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
+        border-bottom: 1px solid #353535;
     }
     .center{
         position: absolute;

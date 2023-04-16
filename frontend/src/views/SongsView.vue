@@ -6,7 +6,7 @@
       />
       <div id="main-container">
         <div id="song-container">
-          <!-- <div id="song-list-header"></div> -->
+          <div id="song-list-header"></div>
             <ul class="song-list">
               <li class="song">
                 <span class="song-header-image">#</span>
@@ -86,22 +86,19 @@
     }
 </script>
 <style scoped>
-  #main-container{
-    border-top: 1px solid #999;
-  }
   #song-container{
-    width: 50%;
+    width: 75%;
     margin: 0 auto;
   }
   .album-image{
     width: 50px;
-    border: 1px solid white;
+    border: 1px solid #353535;
   }
   .song{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #999;
+    border-bottom: 1px solid #353535;
     margin: 10px 0;
     padding: 10px 0;
   }
