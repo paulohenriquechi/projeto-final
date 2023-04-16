@@ -43,6 +43,7 @@
         background-color: transparent;
         padding: 20px 40px;
         font-size: 5em;
+        font-weight: 300;
         word-spacing: 8px;
     }
 </style>
