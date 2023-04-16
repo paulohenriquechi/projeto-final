@@ -10,21 +10,26 @@
                     </div>
                     <div class="input-container">
                         <label for="email">Email</label>
-                        <input type="text" placeholder="email" id="email" v-model="dataForm.email">
+                        <input type="email" placeholder="email" id="email" v-model="dataForm.email">
                         <p class="error" v-if="errors.email">{{errors.email[0]}}</p>
                     </div>
                     <div class="input-container">
-                        <label for="Password">Password</label>
-                        <input type="text" placeholder="password" id="password" v-model="dataForm.password">
+                        <label for="password">Password</label>
+                        <input type="password" placeholder="password" id="password" v-model="dataForm.password">
                         <p class="error" v-if="errors.password">{{errors.password[0]}}</p>
                     </div>
                     <div class="input-container">
                         <label for="password_confirmation">Password Confirm</label>
-                        <input type="text" placeholder="password confirmation" id="password_confirmation" v-model="dataForm.password_confirmation">
+                        <input type="password" placeholder="password confirmation" id="password_confirmation" v-model="dataForm.password_confirmation">
                         <p class="error" v-if="errors.password_confirmation">{{errors.password_confirmation[0]}}</p>
                     </div>
                     <div class="input-container">
                         <button id="button" type="button" @click="register()">Register</button>
+                    </div>
+                    <div class="message-container">
+                        <p class="message">Have already an account?  
+                            <router-link class="link" to="/login">Login here</router-link>
+                        </p>
                     </div>
                 </form>
         </div>
@@ -91,7 +96,7 @@
         }
         #form-container{
             width: 50%;
-            height: 75%;
+            height: 85%;
             background-color: rgba(0, 0, 0, 0.8);
             border: 1px solid #383837;
             padding: 20px;
@@ -154,6 +159,23 @@
             background-color: transparent;
             margin: 0;
             font-weight: 300;
+        }
+        .message-container{
+            text-align: center;
+            margin: 10px;
+            padding: 10px;
+        }
+        .message, .link, .message-container{
+            background-color: transparent;
+        }
+
+        .link{
+            text-decoration: underline;
+            color: #999999;
+            transition: all .5s ease-in-out;
+        }
+        .link:hover{
+            color: #fff;
         }
 
 

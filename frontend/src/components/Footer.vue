@@ -17,7 +17,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 10px;
-        margin: 10px;
+        padding: 20px;
+        border-top: 1px solid #353535;
     }
 </style>
