@@ -95,7 +95,7 @@
           this.songs = this.albumInfo.songs
         }
       },
-      mounted(){
+      created(){
         this.getAlbum(this.album)
       }
     }

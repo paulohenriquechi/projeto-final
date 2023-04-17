@@ -1,6 +1,6 @@
 <template>
       <nav id="navbar">
-        <div id="navbar-links">
+        <div id="navbar-links" v-show="!userToken">
             <router-link class="link" to="/">Home</router-link>
             <router-link class="link" to="/about">About</router-link>
             <router-link class="link" to="/albums">Albums</router-link>
@@ -8,11 +8,32 @@
             <router-link class="link" to="/register">Register</router-link>
             <router-link class="link" to="/login">Login</router-link>
         </div>
+        <div id="navbar-links" v-show="userToken">
+            <router-link class="link" to="/">Home</router-link>
+            <router-link class="link" to="/about">About</router-link>
+            <router-link class="link" to="/albums">Albums</router-link>
+            <router-link class="link" to="/songs">Songs</router-link>
+            <router-link class="link" to="/profile">Profile</router-link>            
+        </div>
   </nav>
 </template>
 <script>
     export default{
-        name: "Navbar"
+        name: "Navbar",
+        data(){
+            return{
+                userToken: null
+            }
+        },
+        methods: {
+            isAuth(){
+                this.userToken = localStorage.getItem('token')
+                console.log(this.userToken)
+            }
+        },
+        created(){
+            this.isAuth()
+        }
     }
 </script>
 <style scoped>
