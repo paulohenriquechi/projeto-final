@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Dotenv\Exception\ValidationException;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -40,35 +42,45 @@ class UserController extends Controller
         return $user;
     }
     function login(Request $request){
-        $user = $request->validate([
+        $request->validate([
             'email' => 'required|email',
             'password' => 'required'
         ]);
-        // $errors = [
-        //     'email' => '',
-        //     'password' => ''
-        // ];
-        $errors = "The email address or password is incorrect";
-        $userInfo = User::where('email', $user["email"])->first();
-        if($userInfo){
-            $password = $userInfo->password;
-            if(Hash::check($user["password"], $password)){
-                $token = Str::random(60);
-                $userInfo->remember_token = $token;
-                $userInfo->save();
-                return $userInfo;
-            }
-            else{
-                return $errors;
-            }
+        if(Auth::attempt($request->only('email', 'password'))){
+            $user = Auth::user();
+            $token = Str::random(60);
+            $user->remember_token = $token;
+            $user->save();
+            return response()->json([Auth::user(), 'token' => $token], 200);
         }else{
+            $errors = "The email address or password is incorrect";               
+            return response(['errors' => ['generalError' => $errors]], 422); 
+        }
+        // $errors = "The email address or password is incorrect";
+        // $userInfo = User::where('email', $user["email"])->first();
+        // if($userInfo){
+        //     $password = $userInfo->password;
+        //     if(Hash::check($user["password"], $password)){
+        //         $token = Str::random(60);
+        //         $userInfo->remember_token = $token;
+        //         $userInfo->save();
+        //         return $userInfo;
+        //     }
+        //     else{
+        //         return $errors;
+        //     }
+        // }else{
+        //     return response(['errors' => [
+        //         'generalError' => $errors
+        //     ]], 422);
+        // }
+
+
+
+            // anotações
             // return $errors["email"] = "User email not found";
             // return response()->json($errors, 422);
             // return response(['errors'])->json(array('error'=>$errors), 422);
-            return response(['errors' => [
-                'generalError' => $errors
-            ]], 422);
-        }
         // $dataCheck = User::where('email', $user["email"])->select('password')->first();
        
 
