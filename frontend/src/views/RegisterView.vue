@@ -71,15 +71,9 @@
         methods: {
             register(){
                 axios.post(`${process.env.VUE_APP_URL}register`, this.dataForm).then((res)=>{
-                    console.log("Caso passe nas validações")
-                    console.log(res.data)
+                    this.$router.push({name: 'login'})
                 }).catch((error)=>{
-                    console.log("Erros: ")
-                    console.log(error)
-                    //retornando erros
                     this.errors = JSON.parse(error.response.request.response).errors
-                    // buscando erros individuais para futuramente colocar como mensagem de erro
-                    console.log(this.errors)
                 })
             }
         }

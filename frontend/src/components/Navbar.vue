@@ -28,7 +28,6 @@
         methods: {
             isAuth(){
                 this.userToken = localStorage.getItem('token')
-                console.log(this.userToken)
             }
         },
         created(){

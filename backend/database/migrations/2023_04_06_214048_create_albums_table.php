@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string("release_year");
             $table->json("description")->nullable();
             $table->string("album_type");
+            $table->string("spotify_url");
         });
     }
 

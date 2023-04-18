@@ -11,16 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('songs', function (Blueprint $table) {
+        Schema::create('reviews', function (Blueprint $table) {
             $table->id();
-            $table->string('song_name');
-            $table->string('song_url');
-            $table->string('length');
-            $table->integer('song_number');
             $table->string('album');
-            $table->json('lyrics')->nullable();
+            $table->unsignedBigInteger('user_id');
+            $table->text('review');
+            $table->integer('rating');
+            $table->timestamps();
             $table->foreign('album')->references('album_name')->on('albums');
-            // $table->string('spotify_url');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('songs');
+        Schema::dropIfExists('reviews');
     }
 };

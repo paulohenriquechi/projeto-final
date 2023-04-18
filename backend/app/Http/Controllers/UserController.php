@@ -91,6 +91,10 @@ class UserController extends Controller
         // return $password;
     }
 
+    function getUser(Request $request){
+        $user = User::where('remember_token', $request->token)->firstOrFail();
+        return $user->id;
+    }
 
 
 

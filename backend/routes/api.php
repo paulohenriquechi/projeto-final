@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SongController;
 use App\Http\Controllers\UserController;
 
@@ -38,3 +39,5 @@ Route::get('songs/{song}', [SongController::class, 'song']);
 Route::post('register', [UserController::class, 'register']);
 // login de usuario
 Route::post('login', [UserController::class, 'login']);
+Route::post('user', [UserController::class, 'getUser']);
+Route::post('review', [ReviewController::class, 'review']);

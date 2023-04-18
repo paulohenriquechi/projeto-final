@@ -4,7 +4,7 @@
         :style="{'background-image': `url('${albumInfo.album_cover}')`}"
         :text="albumInfo.album_name"
       />
-      <!-- <h1 class="title">{{ albumInfo.album_name }}</h1> -->
+      <!-- <pre>{{ $route }}</pre> -->
       <div id="album-description">
         <p class="description-paragraphs">
           Facelift is the debut studio album by the American rock band Alice in Chains, released by Columbia Records on August 21, 1990. The tracks "We Die Young", "Man in the Box", "Sea of Sorrow" and "Bleed the Freak" were released as singles. "Man in the Box" was nominated for a Grammy Award for Best Hard Rock Performance with Vocal in 1992. 
@@ -41,46 +41,72 @@
       </div>
       <div class="spotify-container">
         <h2 class="title">Stream</h2>
-        <iframe src="https://open.spotify.com/embed/album/5LbHbwejgZXRZAgzVAjkhj?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <iframe :src="`https://open.spotify.com/embed/album/${albumInfo.spotify_url}?utm_source=generator&theme=0`" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
       </div>
       <div id="reviews">
         <h1 class="title">Reviews</h1>
-        <div class="review-container">
+        <div id="create-review">
+          <form action="" id="create-review-container">
+            <div class="input-container">
+              <label for="rating">Rate </label>
+              <select name="rating" id="rating" v-model="dataForm.rating" class="select-container">
+                <option value="" disabled selected>Rate the Album</option>
+                <option value="10">10</option>
+                <option value="9">9</option>
+                <option value="8">8</option>
+                <option value="7">7</option>
+                <option value="6">6</option>
+                <option value="5">5</option>
+                <option value="4">4</option>
+                <option value="3">3</option>
+                <option value="2">2</option>
+                <option value="1">1</option>
+                <option value="0">0</option>
+              </select>
+              <p v-if="errors.rating">{{ errors.rating[0] }}</p>
+            </div>
+            <div class="input-container">
+              <label for="review-content">Review </label>
+              <textarea name="review-content" id="review-content" cols="30" rows="10" v-model="dataForm.review">
+              </textarea>
+              <p v-if="errors.review">{{ errors.review[0] }}</p>
+            </div>
+            <div class="input-container">
+              <button @click="setReview($event)">Send Review</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="review-container" v-for="review in reviews" :key="review.id">
           <img src="https://pbs.twimg.com/profile_images/1644096123068465159/06espOL8_400x400.jpg" alt="">
           <div class="review">
             <div class="review-user">
-              <h3>
-                zak kesterson
-              </h3>
-              <span>
-                5/9/21 - 2:38PM
-              </span>
+              <h3>{{ review.user_id}}</h3>
+              <span>{{ review.updated_at }}</span>
             </div>
-              <p>
-                my band treeslug is looking for members in the puget sound area!! (ages 16-19) if you are a drummer and/or a vocalist and you like bands like tool, soundgarden, alice in chains, sleep, etc... hit us up
-                more info on us: https://www.bandmix.com/treeslug/
-                my band treeslug is looking for members in the puget sound area!! (ages 16-19) if you are a drummer and/or a vocalist and you like bands like tool, soundgarden, alice in chains, sleep, etc... hit us up
-                more info on us: https://www.bandmix.com/treeslug/
-                my band treeslug is looking for members in the puget sound area!! (ages 16-19) if you are a drummer and/or a vocalist and you like bands like tool, soundgarden, alice in chains, sleep, etc... hit us up
-                more info on us: https://www.bandmix.com/treeslug/
-                my band treeslug is looking for members in the puget sound area!! (ages 16-19) if you are a drummer and/or a vocalist and you like bands like tool, soundgarden, alice in chains, sleep, etc... hit us up
-                more info on us: https://www.bandmix.com/treeslug/
-                
-              </p>
+              <p>{{ review.review }}</p>
           </div>
         </div>
+
       </div>
+
     </main>
 </template>
 <script>
     import Track from '../components/Track.vue'
     import BannerText from '../components/BannerText.vue'
+    import axios from 'axios'
     export default{
       data(){
         return{
+          token: {},
+          dataForm: {},
           album: this.$route.params.album,
           albumInfo: "",
-          songs: []
+          songs: [],
+          reviews: [],
+          errors: {}
+          
         }
       },
       components: {
@@ -92,11 +118,31 @@
           const req = await fetch(`http://127.0.0.1:8000/api/albums/${album}`)
           const res = await req.json()
           this.albumInfo = res
+          this.dataForm.album = this.albumInfo.album_name
           this.songs = this.albumInfo.songs
+          this.reviews = this.albumInfo.reviews
+          console.log(this.albumInfo)
+        },
+        getUserId(){
+          this.token.token = localStorage.getItem('token')
+          axios.post(`${process.env.VUE_APP_URL}user`, this.token).then((res)=>{
+            this.dataForm.user_id = res.data
+          }).catch((error)=>{
+            console.log(error)
+          })
+        },
+        setReview(e){
+          e.preventDefault()
+          axios.post(`${process.env.VUE_APP_URL}review`, this.dataForm).then((res)=>{
+            location.reload()
+          }).catch((error)=>{
+            this.errors = error.response.data.errors
+          })
         }
       },
       created(){
         this.getAlbum(this.album)
+        this.getUserId()
       }
     }
 </script>
@@ -166,10 +212,41 @@
   }
   .review>p{
     padding: 10px 0;
+    
   }
   #reviews{
     width: 1000px;
     margin: 10px auto;
     border-top: 1px solid #353535;
   }
+
+  /* TESTE */
+  #create-review{
+    width: 1000px;
+    border: 1px solid white;
+    margin: 10px 0;
+  }
+
+  #create-review-container{
+    
+  }
+  .select-container{
+
+  }
+  .select-container>option{
+
+  }
+  #review-content{
+    resize: none;
+  }
+  .input-container{
+    width: 50%;
+    padding: 10px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+
+
+
 </style>
