@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class ReviewController extends Controller
 {
-    function review(Request $request){
+    function setReview(Request $request){
         $review = $request->validate([
             'album' => 'required',
             'user_id' => 'required',

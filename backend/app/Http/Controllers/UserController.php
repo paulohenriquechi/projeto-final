@@ -51,7 +51,8 @@ class UserController extends Controller
             $token = Str::random(60);
             $user->remember_token = $token;
             $user->save();
-            return response()->json([Auth::user(), 'token' => $token], 200);
+            // Auth::user()
+            return response()->json(['user' => ['username' => $user->username], 'token' => $token], 200);
         }else{
             $errors = "The email address or password is incorrect";               
             return response(['errors' => ['generalError' => $errors]], 422); 
@@ -96,6 +97,19 @@ class UserController extends Controller
         return $user->id;
     }
 
+    function authUser(Request $request){
+        $user = User::where([
+            'username' => $request->username,
+            'remember_token' => $request->token
+        ])->first();
+        if($user){
+            return response()->json(['auth' => true]);
+        }else{
+            return response()->json(['auth' => false]);
+        }
+    }
+    
+    // return response()->json(['auth' => true]);
 
 
 }

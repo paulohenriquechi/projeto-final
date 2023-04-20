@@ -4,13 +4,11 @@
         :style="{'background-image': `url('${albumInfo.album_cover}')`}"
         :text="albumInfo.album_name"
       />
-      <!-- <pre>{{ $route }}</pre> -->
       <div id="album-description">
-        <p class="description-paragraphs">
-          Facelift is the debut studio album by the American rock band Alice in Chains, released by Columbia Records on August 21, 1990. The tracks "We Die Young", "Man in the Box", "Sea of Sorrow" and "Bleed the Freak" were released as singles. "Man in the Box" was nominated for a Grammy Award for Best Hard Rock Performance with Vocal in 1992. 
-        </p>
-        <p class="description-paragraphs">
-          Facelift became the first album from the grunge movement to be certified gold on September 11, 1991. The album peaked at No. 42 on the Billboard 200 chart, and has been certified triple-platinum by the RIAA for shipments of three million copies in the United States.
+        <p class="description-paragraphs" 
+          v-for="(description, index) in albumInfo.description"
+          :key="index">
+          {{ description }}
         </p>
       </div>
       <div class="album-container">
@@ -31,13 +29,6 @@
             />
           </ul>
         </div>
-        <!-- <img width="250" :src="albumInfo.album_cover" alt="">
-        <p>{{ albumInfo.album_type }}</p>
-        <p>{{ albumInfo.release_date }}</p>
-        <h3>Tracklist</h3>
-          <ol>
-              <li v-for="song in songs" :key="song.song_url"><router-link :to="'../songs/'+song.song_url">{{ song.song_name }}</router-link> - {{ song.length }} </li>
-          </ol> -->
       </div>
       <div class="spotify-container">
         <h2 class="title">Stream</h2>
@@ -76,13 +67,19 @@
             </div>
           </form>
         </div>
+        <div>
+          <div>
+            <router-link to="/login">Login</router-link>
+            to review this album
+          </div>
+        </div>
 
         <div class="review-container" v-for="review in reviews" :key="review.id">
-          <img src="https://pbs.twimg.com/profile_images/1644096123068465159/06espOL8_400x400.jpg" alt="">
+          <img src="https://pbs.twimg.com/media/Fti7MBYWYAA2cmn?format=jpg&name=small" alt="">
           <div class="review">
             <div class="review-user">
-              <h3>{{ review.user_id}}</h3>
-              <span>{{ review.updated_at }}</span>
+              <h3>{{ review.username}}</h3>
+              <span>{{ new Date(review.updated_at).toLocaleString('nl-NL').replaceAll('-', '/') }}</span>
             </div>
               <p>{{ review.review }}</p>
           </div>
@@ -133,7 +130,7 @@
         },
         setReview(e){
           e.preventDefault()
-          axios.post(`${process.env.VUE_APP_URL}review`, this.dataForm).then((res)=>{
+          axios.post(`${process.env.VUE_APP_URL}setReview`, this.dataForm).then((res)=>{
             location.reload()
           }).catch((error)=>{
             this.errors = error.response.data.errors

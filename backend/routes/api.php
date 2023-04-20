@@ -40,4 +40,7 @@ Route::post('register', [UserController::class, 'register']);
 // login de usuario
 Route::post('login', [UserController::class, 'login']);
 Route::post('user', [UserController::class, 'getUser']);
-Route::post('review', [ReviewController::class, 'review']);
+Route::post('auth', [UserController::class, 'authUser']);
+
+
+Route::post('setReview', [ReviewController::class, 'setReview']);

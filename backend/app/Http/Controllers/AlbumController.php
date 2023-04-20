@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Album;
 use App\Models\Review;
 use App\Models\Song;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AlbumController extends Controller
@@ -19,13 +20,12 @@ class AlbumController extends Controller
         $songsInfo = Song::where('album', $albumInfo->album_name)->get();
         $reviews = Review::orderBy('updated_at', 'desc')->where('album', $albumInfo->album_name)->get();
         $albumInfo->songs = $songsInfo;
+        foreach($reviews as $review){
+            $username = User::where('id', $review->user_id)->firstOrFail();
+            $review->username = $username->username;
+        }
         $albumInfo->reviews = $reviews;
         return $albumInfo;
     }
 
-    // public function albumSongs($album){
-    //     $album = Album::where('album_url', $album)->firstOrFail();
-    //     $songs = $album->songs()->get();
-    //     return $songs;
-    // }
 }

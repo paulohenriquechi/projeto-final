@@ -1,6 +1,13 @@
 <template>
       <nav id="navbar">
-        <div id="navbar-links" v-show="!userToken">
+        <div id="navbar-links" v-if="isAuth">
+            <router-link class="link" to="/">Home</router-link>
+            <router-link class="link" to="/about">About</router-link>
+            <router-link class="link" to="/albums">Albums</router-link>
+            <router-link class="link" to="/songs">Songs</router-link>
+            <router-link class="link" to="/profile">Profile</router-link>
+        </div>
+        <div id="navbar-links" v-else>
             <router-link class="link" to="/">Home</router-link>
             <router-link class="link" to="/about">About</router-link>
             <router-link class="link" to="/albums">Albums</router-link>
@@ -8,30 +15,33 @@
             <router-link class="link" to="/register">Register</router-link>
             <router-link class="link" to="/login">Login</router-link>
         </div>
-        <div id="navbar-links" v-show="userToken">
-            <router-link class="link" to="/">Home</router-link>
-            <router-link class="link" to="/about">About</router-link>
-            <router-link class="link" to="/albums">Albums</router-link>
-            <router-link class="link" to="/songs">Songs</router-link>
-            <router-link class="link" to="/profile">Profile</router-link>            
-        </div>
   </nav>
 </template>
 <script>
+  import axios from 'axios';
     export default{
         name: "Navbar",
         data(){
             return{
-                userToken: null
+                isAuth: null
             }
         },
         methods: {
-            isAuth(){
-                this.userToken = localStorage.getItem('token')
+            authUser(){
+            let authInfo = {
+                "username": localStorage.getItem('username'),
+                "token": localStorage.getItem('token')
             }
+            axios.post(`${process.env.VUE_APP_URL}auth`, authInfo).then((res)=>{
+                this.isAuth = res.data.auth
+                console.log(this.isAuth)
+            }).catch((error)=>{
+                console.log(error)
+            })
+        }
         },
         created(){
-            this.isAuth()
+            this.authUser()
         }
     }
 </script>

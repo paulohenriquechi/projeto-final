@@ -45,28 +45,4 @@
       padding: 10px 0px;
       gap: 10px;
     }
-
-    /* #grid{
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        width: fit-content;
-        margin: 0 auto;
-        gap: 10px;
-    }
-    .card{
-        width: 300px;
-        align-content: center;
-        border: 1px solid black;
-    }
-    .card>img{
-        width: inherit;
-    }
-    .card>p{
-        text-align: center;
-    } */
 </style>
-
-            <!-- <img :src="album.album_cover" alt="album.album_name">
-            <p><router-link :to="'albums/'+album.album_url">{{ album.album_name }}</router-link></p> -->
-            <!-- <p>Release Date: {{ album.release_date }}</p>
-            <p>{{ album.description }}</p> -->
