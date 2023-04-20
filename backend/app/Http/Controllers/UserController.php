@@ -93,8 +93,15 @@ class UserController extends Controller
     }
 
     function getUser(Request $request){
-        $user = User::where('remember_token', $request->token)->firstOrFail();
-        return $user->id;
+        // $user = User::where('remember_token', $request->token)->firstOrFail();
+        // return $user->id;
+        $user = User::where([
+            'username' => $request->username,
+            'remember_token' => $request->token
+        ])->first();
+        if($user){
+            return $user;
+        }
     }
 
     function authUser(Request $request){
@@ -108,10 +115,6 @@ class UserController extends Controller
             return response()->json(['auth' => false]);
         }
     }
-    
-    // return response()->json(['auth' => true]);
-
-
 }
 
 // function login(Request $request){

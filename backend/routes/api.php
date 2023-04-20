@@ -44,3 +44,4 @@ Route::post('auth', [UserController::class, 'authUser']);
 
 
 Route::post('setReview', [ReviewController::class, 'setReview']);
+Route::get('getReviews/{album}', [ReviewController::class, 'getReviews']);

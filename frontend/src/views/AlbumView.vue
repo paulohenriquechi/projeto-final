@@ -30,14 +30,14 @@
           </ul>
         </div>
       </div>
-      <div class="spotify-container">
+      <!-- <div class="spotify-container">
         <h2 class="title">Stream</h2>
         <iframe :src="`https://open.spotify.com/embed/album/${albumInfo.spotify_url}?utm_source=generator&theme=0`" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-      </div>
+      </div> -->
       <div id="reviews">
         <h1 class="title">Reviews</h1>
         <div id="create-review">
-          <form action="" id="create-review-container">
+          <form action="" id="create-review-container" v-if="isAuth">
             <div class="input-container">
               <label for="rating">Rate </label>
               <select name="rating" id="rating" v-model="dataForm.rating" class="select-container">
@@ -66,12 +66,11 @@
               <button @click="setReview($event)">Send Review</button>
             </div>
           </form>
-        </div>
-        <div>
-          <div>
+          <div v-else>
             <router-link to="/login">Login</router-link>
             to review this album
           </div>
+
         </div>
 
         <div class="review-container" v-for="review in reviews" :key="review.id">
@@ -96,9 +95,8 @@
     export default{
       data(){
         return{
-          token: {},
+          isAuth: null,
           dataForm: {},
-          album: this.$route.params.album,
           albumInfo: "",
           songs: [],
           reviews: [],
@@ -111,8 +109,8 @@
         BannerText
       },
       methods: {
-        async getAlbum(album){
-          const req = await fetch(`http://127.0.0.1:8000/api/albums/${album}`)
+        async getAlbum(){
+          const req = await fetch(`http://127.0.0.1:8000/api/albums/${this.$route.params.album}`)
           const res = await req.json()
           this.albumInfo = res
           this.dataForm.album = this.albumInfo.album_name
@@ -120,10 +118,27 @@
           this.reviews = this.albumInfo.reviews
           console.log(this.albumInfo)
         },
-        getUserId(){
-          this.token.token = localStorage.getItem('token')
-          axios.post(`${process.env.VUE_APP_URL}user`, this.token).then((res)=>{
-            this.dataForm.user_id = res.data
+        authUser(){
+          let authInfo = {
+            "username": localStorage.getItem('username'),
+            "token": localStorage.getItem('token')
+          }
+          axios.post(`${process.env.VUE_APP_URL}auth`, authInfo).then((res)=>{
+            this.isAuth = res.data.auth
+            console.log(this.isAuth)
+            this.getUser()
+          }).catch((error)=>{
+            console.log(error)
+          })
+        },
+        getUser(){
+          let userInfo = {
+            "username": localStorage.getItem('username'),
+            "token": localStorage.getItem('token')
+          }
+          axios.post(`${process.env.VUE_APP_URL}user`, userInfo).then((res)=>{
+            this.dataForm.user_id = res.data.id
+            console.log(res)
           }).catch((error)=>{
             console.log(error)
           })
@@ -139,7 +154,8 @@
       },
       created(){
         this.getAlbum(this.album)
-        this.getUserId()
+        this.authUser()
+        // this.getUserId()
       }
     }
 </script>
@@ -224,7 +240,7 @@
     margin: 10px 0;
   }
 
-  #create-review-container{
+  /* #create-review-container{
     
   }
   .select-container{
@@ -232,7 +248,7 @@
   }
   .select-container>option{
 
-  }
+  } */
   #review-content{
     resize: none;
   }

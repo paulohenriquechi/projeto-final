@@ -23,4 +23,8 @@ class ReviewController extends Controller
         ]);
         return $review;
     }
+
+    function getReviews($album){
+        return Review::orderBy('updated_at', 'desc')->where('album', $album)->get();
+    }
 }

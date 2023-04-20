@@ -34,11 +34,10 @@
             }
             axios.post(`${process.env.VUE_APP_URL}auth`, authInfo).then((res)=>{
                 this.isAuth = res.data.auth
-                console.log(this.isAuth)
             }).catch((error)=>{
                 console.log(error)
             })
-        }
+            }
         },
         created(){
             this.authUser()
