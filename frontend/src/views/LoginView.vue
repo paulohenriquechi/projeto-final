@@ -40,17 +40,11 @@
         methods: {
             login(){
                 axios.post(`${process.env.VUE_APP_URL}login`, this.dataForm).then((res)=>{
-                    console.log("Caso passe nas validações")
-                    console.log(res.data)
                     localStorage.setItem('token', res.data.token)
-                    localStorage.setItem('username', res.data.user.username)
                     window.location.href = '/'
 
                 }).catch((error)=>{
-                    // console.log("Erros: ")
-                    console.log(error)
                     this.errors = JSON.parse(error.response.request.response).errors
-                    console.log(this.errors)
                 })
             }
         }

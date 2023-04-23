@@ -37,11 +37,11 @@
       <div id="reviews">
         <h1 class="title">Reviews</h1>
         <div id="create-review">
-          <form action="" id="create-review-container" v-if="isAuth">
+          <form action="" id="create-review-container" v-if="isAuth && !isReviewed">
             <div class="input-container">
               <label for="rating">Rate </label>
-              <select name="rating" id="rating" v-model="dataForm.rating" class="select-container">
-                <option value="" disabled selected>Rate the Album</option>
+              <select name="rating" id="rating" v-model="dataForm.rating" class="select-container" selected="selected">
+                <option value="" disabled selected hidden>Rate the Album</option>
                 <option value="10">10</option>
                 <option value="9">9</option>
                 <option value="8">8</option>
@@ -66,14 +66,18 @@
               <button @click="setReview($event)">Send Review</button>
             </div>
           </form>
+          <div v-else-if="isAuth && isReviewed">
+            Go to 
+            <router-link to="/profile">Profile</router-link>
+            to edit your review
+          </div>
           <div v-else>
             <router-link to="/login">Login</router-link>
             to review this album
           </div>
-
         </div>
 
-        <div class="review-container" v-for="review in reviews" :key="review.id">
+        <!-- <div class="review-container" v-for="review in reviews" :key="review.id">
           <img src="https://pbs.twimg.com/media/Fti7MBYWYAA2cmn?format=jpg&name=small" alt="">
           <div class="review">
             <div class="review-user">
@@ -82,31 +86,44 @@
             </div>
               <p>{{ review.review }}</p>
           </div>
-        </div>
-
+        </div> -->
+        <Review v-for="review in reviews" :key="review.id"
+        image="https://pbs.twimg.com/media/Fti7MBYWYAA2cmn?format=jpg&name=small"
+        :album="review.album"
+        :title="review.username"
+        :date="review.updated_at"
+        :content="review.review"
+        />
       </div>
-
     </main>
 </template>
 <script>
     import Track from '../components/Track.vue'
     import BannerText from '../components/BannerText.vue'
+    import Review from '@/components/Review.vue'
     import axios from 'axios'
     export default{
       data(){
         return{
-          isAuth: null,
+          isAuth: false,
+          isReviewed: false,
           dataForm: {},
           albumInfo: "",
           songs: [],
           reviews: [],
-          errors: {}
-          
+          errors: {},
+          config: {
+            headers: {
+              "Content-type": "application/json",
+              "Authorization": `Bearer ${localStorage.getItem('token')}`
+              }
+          }
         }
       },
       components: {
         Track,
-        BannerText
+        BannerText,
+        Review
       },
       methods: {
         async getAlbum(){
@@ -116,36 +133,25 @@
           this.dataForm.album = this.albumInfo.album_name
           this.songs = this.albumInfo.songs
           this.reviews = this.albumInfo.reviews
-          console.log(this.albumInfo)
         },
         authUser(){
-          let authInfo = {
-            "username": localStorage.getItem('username'),
-            "token": localStorage.getItem('token')
-          }
-          axios.post(`${process.env.VUE_APP_URL}auth`, authInfo).then((res)=>{
-            this.isAuth = res.data.auth
-            console.log(this.isAuth)
-            this.getUser()
-          }).catch((error)=>{
-            console.log(error)
-          })
-        },
-        getUser(){
-          let userInfo = {
-            "username": localStorage.getItem('username'),
-            "token": localStorage.getItem('token')
-          }
-          axios.post(`${process.env.VUE_APP_URL}user`, userInfo).then((res)=>{
-            this.dataForm.user_id = res.data.id
-            console.log(res)
+          axios.post(`${process.env.VUE_APP_URL}auth`, null, this.config).then((res)=>{
+            if(res.status === 200){
+              this.isAuth = true
+              let reviewed = this.reviews.find((review) => review.user_id==res.data.id)
+              if(reviewed){
+                this.isReviewed = true
+              }else{
+                this.dataForm.user_id = res.data.id
+              }
+            }
           }).catch((error)=>{
             console.log(error)
           })
         },
         setReview(e){
           e.preventDefault()
-          axios.post(`${process.env.VUE_APP_URL}setReview`, this.dataForm).then((res)=>{
+          axios.post(`${process.env.VUE_APP_URL}setReview`, this.dataForm, this.config).then((res)=>{
             location.reload()
           }).catch((error)=>{
             this.errors = error.response.data.errors
@@ -155,7 +161,6 @@
       created(){
         this.getAlbum(this.album)
         this.authUser()
-        // this.getUserId()
       }
     }
 </script>
@@ -200,7 +205,7 @@
     margin: 0 auto;
     width: 1000px;
   }
-  .review-container{
+  /* .review-container{
     border: 1px solid #353535;
     margin: 0 auto;
     padding: 20px;
@@ -226,7 +231,7 @@
   .review>p{
     padding: 10px 0;
     
-  }
+  } */
   #reviews{
     width: 1000px;
     margin: 10px auto;
@@ -236,7 +241,7 @@
   /* TESTE */
   #create-review{
     width: 1000px;
-    border: 1px solid white;
+    border: 1px solid #353535;
     margin: 10px 0;
   }
 
@@ -255,10 +260,29 @@
   .input-container{
     width: 50%;
     padding: 10px;
-    margin: 10px;
+    margin: 10px auto;
     display: flex;
     flex-direction: column;
   }
+
+  button{
+        cursor: pointer;
+        outline: hidden;
+        outline-style: none;
+        outline-width: 0;
+        width: 100%;
+        margin: 5px 0;
+        padding: 10px;
+        border-style: none;
+        transition: all .2s linear;
+        border: 1px solid #fff;
+
+
+    }
+    button:hover{
+        background-color: #3333339a;
+        
+    }
 
 
 

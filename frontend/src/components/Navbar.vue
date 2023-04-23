@@ -23,20 +23,25 @@
         name: "Navbar",
         data(){
             return{
-                isAuth: null
+                isAuth: false,
+                config: {
+                    headers: {
+                        "Content-type": "application/json",
+                        "Authorization": `Bearer ${localStorage.getItem('token')}`
+                    }
+                }
+
             }
         },
         methods: {
             authUser(){
-            let authInfo = {
-                "username": localStorage.getItem('username'),
-                "token": localStorage.getItem('token')
-            }
-            axios.post(`${process.env.VUE_APP_URL}auth`, authInfo).then((res)=>{
-                this.isAuth = res.data.auth
-            }).catch((error)=>{
-                console.log(error)
-            })
+                axios.post(`${process.env.VUE_APP_URL}auth`, null, this.config).then((res)=>{
+                    if(res.status === 200){
+                        this.isAuth = true
+                    }
+                }).catch((error)=>{
+                    console.log(error)
+                })
             }
         },
         created(){

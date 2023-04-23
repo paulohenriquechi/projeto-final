@@ -134,7 +134,7 @@
         #button{
             cursor: pointer;
         }
-        button:hover{
+        #button:hover{
             transition: all .2s linear;
             background-color: #3333339a;
         }

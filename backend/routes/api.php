@@ -22,26 +22,35 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('albums', [AlbumController::class, 'albums']);
-Route::get('albums/{album}', [AlbumController::class, 'album']);
-// Route::get('about', [...]); irá mostrar a biografia da banda
 
-// irá mostrar todas as músicas da banda
-Route::get('songs', [SongController::class, 'songs']);
+// Route::post('user', [UserController::class, 'getUser']);
 
-// irá mostrar a música escolhida
-Route::get('songs/{song}', [SongController::class, 'song']);
 
-// ficou inutil, consegui transferir diretamente os dados das musicas
-// Route::get('album/{albumSongs}', [AlbumController::class, 'albumSongs']);
+//rotas publicas
 
-// cadastro de usuário
+// fazer cadastro
 Route::post('register', [UserController::class, 'register']);
-// login de usuario
+// fazer login
 Route::post('login', [UserController::class, 'login']);
-Route::post('user', [UserController::class, 'getUser']);
-Route::post('auth', [UserController::class, 'authUser']);
-
-
-Route::post('setReview', [ReviewController::class, 'setReview']);
+// ver albums
+Route::get('albums', [AlbumController::class, 'albums']);
+// ver album especifico
+Route::get('albums/{album}', [AlbumController::class, 'album']);
+// ver musicas
+Route::get('songs', [SongController::class, 'songs']);
+// ver musica especifica
+Route::get('songs/{song}', [SongController::class, 'song']);
+// ver reviews
 Route::get('getReviews/{album}', [ReviewController::class, 'getReviews']);
+
+
+//rotas protegidas
+
+//fazer review
+Route::middleware('auth:sanctum')->post('setReview', [ReviewController::class, 'setReview']);
+// verifica se o usuario está logado
+Route::middleware('auth:sanctum')->post('auth', [UserController::class, 'authUser']);
+// desloga o usuario
+Route::middleware('auth:sanctum')->post('logout', [UserController::class, 'logout']);
+// ver reviews do usuário
+Route::middleware('auth:sanctum')->get('getUserReviews/{id}', [ReviewController::class, 'getUserReviews']);
