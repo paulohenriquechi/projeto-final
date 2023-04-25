@@ -18,9 +18,44 @@
                     <button class="button" @click="logout">Logout</button>
                 </div>
             </div>
+
+            <h2 class="title" v-if="showForm">Edit your {{ dataForm.album }} review!</h2>
+            <div v-if="showForm" id="review">
+                <form action="">
+                    <div class="input-container">
+                        <label for="rating">Rate </label>
+                        <select name="rating" id="rating" class="select-container" v-model="dataForm.rating">
+                            <option value="" disabled selected hidden>{{dataForm.rating}}</option>
+                            <option value="10">10</option>
+                            <option value="9">9</option>
+                            <option value="8">8</option>
+                            <option value="7">7</option>
+                            <option value="6">6</option>
+                            <option value="5">5</option>
+                            <option value="4">4</option>
+                            <option value="3">3</option>
+                            <option value="2">2</option>
+                            <option value="1">1</option>
+                            <option value="0">0</option>
+                        </select>
+                        <p class="error" v-if="errors.rating">{{ errors.rating[0] }}</p>
+                    </div>
+                    <div class="input-container">
+                        <label for="review-content">Review </label>
+                        <textarea name="review-content" id="review-content" cols="30" rows="10" v-model="dataForm.review"></textarea>
+                        <p class="error" v-if="errors.review">{{ errors.review[0] }}</p>
+                    </div>
+                    <div class="input-container">
+                        <button class="button" @click.prevent="updateReview">Update Review</button>
+                        <button class="button" @click.prevent="cancelUpdate">Cancel</button>
+                    </div>
+                </form>
+            </div>
+
             <div>
                 <h2 class="title">My Reviews</h2>
                 <Review v-for="review in reviews" :key="review.id"
+                :reviewId="review.id"
                 :image="review.album_cover"
                 :album="review.album"
                 :title="review.album"
@@ -29,6 +64,8 @@
                 :showRating=true
                 :showActions=true
                 :rating="review.rating"
+                @edit="editReview"
+                @remove="removeReview"
                 />
             </div>
         </div>
@@ -42,8 +79,11 @@
         data(){
             return{
                 isAuth: false,
+                showForm: false,
+                dataForm: {},
                 user: {},
                 reviews: {},
+                errors: {},
                 config: {
                     headers: {
                         "Content-type": "application/json",
@@ -75,7 +115,39 @@
                 }).catch((error)=>{
                     console.log(error)
                 })
+            },
+            editReview(e){
+                this.showForm = true
+                axios.get(`${process.env.VUE_APP_URL}getReview/${e}`, this.config).then((res)=>{
+                    this.dataForm = res.data
+                    window.location.href = '#review'
+                }).catch((error)=>{
+                    console.log(error)
+                })
+            },
+            removeReview(e){
+                axios.get(`${process.env.VUE_APP_URL}deleteReview/${e}`, this.config).then((res)=>{
+                    this.getUserReviews()
+                }).catch((error)=>{
+                    console.log(error)
+                })
+            },
+            updateReview(){
+                axios.post(`${process.env.VUE_APP_URL}updateReview`, this.dataForm, this.config).then((res)=>{
+                    this.showForm = !this.showForm
+                    this.dataForm = {}
+                    this.errors = {}
+                    this.getUserReviews()
+                }).catch((error)=>{
+                    this.errors = error.response.data.errors
+                    console.log(error)
+                })
+            },
+            cancelUpdate(){
+                this.showForm = !this.showForm
+                this.dataForm = {}
             }
+
         },
         created(){
             this.getUserInfo()
@@ -140,5 +212,29 @@
 
     img{
         width: 150px;
+    }
+
+  #review{
+    border: 1px solid #353535;
+    margin: 10px 0;
+  }
+
+  #review-content{
+    resize: none;
+  }
+  .input-container{
+    width: 50%;
+    padding: 10px;
+    margin: 10px auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .error{
+    color: darkred;
+    /* margin-top: 5px; */
+    background-color: transparent;
+    text-decoration: underline;
+    text-align: end;
     }
 </style>

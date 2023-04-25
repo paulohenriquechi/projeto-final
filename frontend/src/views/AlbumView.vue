@@ -54,26 +54,30 @@
                 <option value="1">1</option>
                 <option value="0">0</option>
               </select>
-              <p v-if="errors.rating">{{ errors.rating[0] }}</p>
+              <p class="error" v-if="errors.rating">{{ errors.rating[0] }}</p>
             </div>
             <div class="input-container">
               <label for="review-content">Review </label>
               <textarea name="review-content" id="review-content" cols="30" rows="10" v-model="dataForm.review">
               </textarea>
-              <p v-if="errors.review">{{ errors.review[0] }}</p>
+              <p class="error" v-if="errors.review">{{ errors.review[0] }}</p>
             </div>
             <div class="input-container">
-              <button @click="setReview($event)">Send Review</button>
+              <button @click.prevent="setReview">Send Review</button>
             </div>
           </form>
-          <div v-else-if="isAuth && isReviewed">
-            Go to 
-            <router-link to="/profile">Profile</router-link>
-            to edit your review
+          <div v-else-if="isAuth && isReviewed" class="message-container">
+            <p>
+              Go to 
+              <router-link class="link" to="/profile">Profile</router-link>
+              to edit your review
+            </p>
           </div>
-          <div v-else>
-            <router-link to="/login">Login</router-link>
-            to review this album
+          <div v-else class="message-container">
+            <p class="message">
+              <router-link class="link" to="/login">Login</router-link>
+              to review this album            
+            </p>
           </div>
         </div>
 
@@ -149,8 +153,7 @@
             console.log(error)
           })
         },
-        setReview(e){
-          e.preventDefault()
+        setReview(){
           axios.post(`${process.env.VUE_APP_URL}setReview`, this.dataForm, this.config).then((res)=>{
             location.reload()
           }).catch((error)=>{
@@ -245,15 +248,6 @@
     margin: 10px 0;
   }
 
-  /* #create-review-container{
-    
-  }
-  .select-container{
-
-  }
-  .select-container>option{
-
-  } */
   #review-content{
     resize: none;
   }
@@ -266,24 +260,41 @@
   }
 
   button{
-        cursor: pointer;
-        outline: hidden;
-        outline-style: none;
-        outline-width: 0;
-        width: 100%;
-        margin: 5px 0;
-        padding: 10px;
-        border-style: none;
-        transition: all .2s linear;
-        border: 1px solid #fff;
+    cursor: pointer;
+    outline: hidden;
+    outline-style: none;
+    outline-width: 0;
+    width: 100%;
+    margin: 5px 0;
+    padding: 10px;
+    border-style: none;
+    transition: all .2s linear;
+    border: 1px solid #fff;
 
 
-    }
-    button:hover{
-        background-color: #3333339a;
-        
-    }
+  }
+  button:hover{
+    background-color: #3333339a;
+  }
+  .message-container{
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+  }
+  .link{
+    text-decoration: underline;
+    color: #999999;
+    transition: all .5s ease-in-out;
+  }
 
+  .link:hover{
+    color: #fff;
+  }
 
-
+  .error{
+    color: darkred;
+    background-color: transparent;
+    text-decoration: underline;
+    text-align: end;
+  }
 </style>

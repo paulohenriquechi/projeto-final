@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Album;
 use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
@@ -29,6 +30,10 @@ class ReviewController extends Controller
         return Review::orderBy('updated_at', 'desc')->where('album', $album)->get();
     }
 
+    function getReview($id){
+        return Review::findOrFail($id);
+    }
+
     function getUserReviews($id){
         $userReviews = Review::orderBy('updated_at', 'desc')->where('user_id', $id)->get();
         foreach($userReviews as $review){
@@ -37,5 +42,21 @@ class ReviewController extends Controller
         }
         return $userReviews;
         // return response()->json(["reviews" => $userReviews]);
+    }
+    function updateReview(Request $request){
+        $review = $request->validate([
+            'review' => 'required|min:3|max:1000',
+            'rating' => 'required'
+        ]);
+
+        $review = Review::where('id', $request->id)->where('user_id', $request->user_id)->update(['review' => $request->review, 'rating' => $request->rating]);
+
+        return $review;
+
+    }
+
+    function deleteReview($id){
+        Review::findOrFail($id)->delete();
+        return response()->json("Review deleted");
     }
 }

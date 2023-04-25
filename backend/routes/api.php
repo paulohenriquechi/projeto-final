@@ -54,3 +54,10 @@ Route::middleware('auth:sanctum')->post('auth', [UserController::class, 'authUse
 Route::middleware('auth:sanctum')->post('logout', [UserController::class, 'logout']);
 // ver reviews do usuário
 Route::middleware('auth:sanctum')->get('getUserReviews/{id}', [ReviewController::class, 'getUserReviews']);
+// deleta review do usuario
+Route::middleware('auth:sanctum')->get('deleteReview/{id}', [ReviewController::class, 'deleteReview']);
+// pega review especifico
+Route::middleware('auth:sanctum')->get('getReview/{id}', [ReviewController::class, 'getReview']);
+// atualiza review
+Route::middleware('auth:sanctum')->post('updateReview', [ReviewController::class, 'updateReview']);
+

@@ -3,8 +3,8 @@
         <div>
             <img class="image" :src="image" :alt="album">
             <div id="actions-container" v-if="showActions">
-                <button class="button">Edit Review</button>
-                <button class="button">Remove Review</button>
+                <button class="button" :value="reviewId" @click="$emit('edit', $event.target.value)">Edit Review</button>
+                <button class="button" :value="reviewId" @click="$emit('remove', $event.target.value)">Remove Review</button>
             </div>
         </div>
         <div class="review">
@@ -36,8 +36,10 @@ export default{
         content: String,
         showRating: Boolean,
         showActions: Boolean,
-        rating: Number
-    }
+        rating: Number,
+        reviewId: Number
+    },
+    emits: ['edit', 'remove']
 }
 
 </script>
