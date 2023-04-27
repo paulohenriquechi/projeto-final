@@ -4,7 +4,7 @@
             <h2 class="title">My Account</h2>
             <div id="user-info">
                 <div id="img-container">
-                    <img :src="'../../../backend/public/profilePictures/'.user.remember_token" alt="">
+                    <img :src="'http://localhost:8000/storage/image/'+user.picture" alt="">
                 </div>
                 <div id="info">
                     <div>
@@ -103,6 +103,7 @@
                     if(res.status === 200){
                         this.isAuth = true
                         this.user = res.data
+                        console.log(res.data)
                         this.getUserReviews()
                     }
                 }).catch((error)=>{
@@ -187,6 +188,7 @@
     
     #img-container>img{
         width: 100%;
+        aspect-ratio: 1/1;
         border-radius: 50%;
         border: 1px solid white;
     }
@@ -211,10 +213,6 @@
     .button:hover{
         background-color: #3333339a;
         
-    }
-
-    img{
-        width: 150px;
     }
 
     #review{

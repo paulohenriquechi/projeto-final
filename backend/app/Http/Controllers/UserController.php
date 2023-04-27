@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -63,8 +63,9 @@ class UserController extends Controller
             $file = $request->image;
             $fileExtension = $file->extension();
             $fileName = md5($file->getClientOriginalName().strtotime("now")).".".$fileExtension;
-            $file->move(public_path("profilePictures"), $fileName);
-            $user->remember_token = $fileName;
+            // $file->move(public_path("image"), $fileName);
+            Storage::putFileAs('public/image', $file, $fileName);
+            $user->picture = $fileName;
             $user->save();
             return $user;
         }else{
