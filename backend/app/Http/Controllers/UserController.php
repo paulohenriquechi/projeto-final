@@ -28,6 +28,7 @@ class UserController extends Controller
                 "username" => $user["username"],
                 "email" => $user["email"],
                 "password" => $user["password"],
+                "picture" => "default.png"
         ]);
         return $user;
     }
@@ -50,6 +51,25 @@ class UserController extends Controller
 
     function authUser(Request $request){
         return $request->user();
+    }
+
+    function editProfile(Request $request){
+        // $imageName = $request->name;
+        // $imageType = $request->type;
+        // return response()->json($request->all());
+        // return($imageType);
+        $user = Auth::user();
+        if($request->hasFile('image')&&$request->File('image')->isValid()){
+            $file = $request->image;
+            $fileExtension = $file->extension();
+            $fileName = md5($file->getClientOriginalName().strtotime("now")).".".$fileExtension;
+            $file->move(public_path("profilePictures"), $fileName);
+            $user->remember_token = $fileName;
+            $user->save();
+            return $user;
+        }else{
+
+        }
     }
 
     function logout(){

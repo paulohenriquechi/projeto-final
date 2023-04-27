@@ -4,7 +4,7 @@
             <h2 class="title">My Account</h2>
             <div id="user-info">
                 <div id="img-container">
-                    <img src="https://a.ltrbxd.com/resized/avatar/upload/2/9/3/8/1/7/4/shard/avtr-0-1000-0-1000-crop.jpg?v=8eee5107c9" alt="">
+                    <img :src="'../../../backend/public/profilePictures/'.user.remember_token" alt="">
                 </div>
                 <div id="info">
                     <div>
@@ -14,7 +14,7 @@
                     </div>
                 </div>
                 <div id="actions-container">
-                    <button class="button" @click="edit">Edit</button>
+                    <button class="button" @click="editProfile">Edit Profile</button>
                     <button class="button" @click="logout">Logout</button>
                 </div>
             </div>
@@ -146,6 +146,9 @@
             cancelUpdate(){
                 this.showForm = !this.showForm
                 this.dataForm = {}
+            },
+            editProfile(){
+                this.$router.push({name: 'edit'})
             }
 
         },
@@ -214,21 +217,21 @@
         width: 150px;
     }
 
-  #review{
-    border: 1px solid #353535;
-    margin: 10px 0;
-  }
+    #review{
+        border: 1px solid #353535;
+        margin: 10px 0;
+    }
 
-  #review-content{
-    resize: none;
-  }
-  .input-container{
-    width: 50%;
-    padding: 10px;
-    margin: 10px auto;
-    display: flex;
-    flex-direction: column;
-  }
+    #review-content{
+        resize: none;
+    }
+    .input-container{
+        width: 50%;
+        padding: 10px;
+        margin: 10px auto;
+        display: flex;
+        flex-direction: column;
+    }
 
   .error{
     color: darkred;

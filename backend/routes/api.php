@@ -60,4 +60,6 @@ Route::middleware('auth:sanctum')->get('deleteReview/{id}', [ReviewController::c
 Route::middleware('auth:sanctum')->get('getReview/{id}', [ReviewController::class, 'getReview']);
 // atualiza review
 Route::middleware('auth:sanctum')->post('updateReview', [ReviewController::class, 'updateReview']);
+// atualiza informações do usuario
+Route::middleware('auth:sanctum')->post('editProfile', [UserController::class, 'editProfile']);
 
