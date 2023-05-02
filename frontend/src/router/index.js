@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import axios from 'axios'
 
 const routes = [
   {
@@ -35,22 +36,28 @@ const routes = [
   {
     path: '/register',
     name: 'register',
-    component: () => import(/* webpackChunkName: "about" */ '../views/RegisterView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/RegisterView.vue'),
   },
   {
     path: '/login',
     name: 'login',
-    component: () => import(/* webpackChunkName: "about" */ '../views/LoginView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/LoginView.vue'),
   },
   {
     path: '/profile',
     name: 'profile',
-    component: () => import(/* webpackChunkName: "about" */ '../views/ProfileView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/ProfileView.vue'),
+    meta: {
+      requireAuth: true
+    }
   },
   {
     path: '/profile/edit',
     name: 'edit',
-    component: () => import(/* webpackChunkName: "about" */ '../views/EditProfileView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/EditProfileView.vue'),
+    meta: {
+      requireAuth: true
+    }
   }
   
 ]
@@ -59,5 +66,43 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+var isAuth = false
+router.beforeEach((to, from, next)=>{
+  // var isAuth = authUser()
+  authUser()
+  console.log(isAuth)
+  if(to.meta?.requireAuth){
+    console.log(to.name)
+    if(isAuth){
+      next()
+    }else{
+      next({name: 'login'})
+    }
+  }else{
+    next()
+  }
+})
+
+function authUser(){
+  axios.post(`${process.env.VUE_APP_URL}auth`, null, {
+      headers: {
+        "Content-type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
+      }
+    }).then((res)=>{
+    if(res.status === 200){
+      console.log("esta logado")
+      isAuth = true
+      return true
+    }else{
+      console.log("nao esta logado")
+      isAuth = false
+      return false
+    }
+  }).catch((error)=>{
+    return false
+  })
+}
+
 
 export default router

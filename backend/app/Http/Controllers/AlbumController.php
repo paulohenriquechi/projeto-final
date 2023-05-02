@@ -21,8 +21,9 @@ class AlbumController extends Controller
         $reviews = Review::orderBy('updated_at', 'desc')->where('album', $albumInfo->album_name)->get();
         $albumInfo->songs = $songsInfo;
         foreach($reviews as $review){
-            $username = User::where('id', $review->user_id)->firstOrFail();
-            $review->username = $username->username;
+            $user = User::where('id', $review->user_id)->firstOrFail();
+            $review->username = $user->username;
+            $review->user_picture = $user->picture;
         }
         $albumInfo->reviews = $reviews;
         return $albumInfo;

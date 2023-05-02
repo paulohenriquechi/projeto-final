@@ -4,7 +4,7 @@
             <h2 class="title">My Account</h2>
             <div id="user-info">
                 <div id="img-container">
-                    <img :src="'http://localhost:8000/storage/image/'+user.picture" alt="">
+                    <img :src="'http://localhost:8000/storage/image/'+user.picture" alt="Profile Picture">
                 </div>
                 <div id="info">
                     <div>
@@ -54,19 +54,24 @@
 
             <div>
                 <h2 class="title">My Reviews</h2>
-                <Review v-for="review in reviews" :key="review.id"
-                :reviewId="review.id"
-                :image="review.album_cover"
-                :album="review.album"
-                :title="review.album"
-                :date="review.updated_at"
-                :content="review.review"
-                :showRating=true
-                :showActions=true
-                :rating="review.rating"
-                @edit="editReview"
-                @remove="removeReview"
-                />
+                <div v-if="reviews!=0">
+                    <Review v-for="review in reviews" :key="review.id"
+                    :reviewId="review.id"
+                    :image="review.album_cover"
+                    :album="review.album"
+                    :title="review.album"
+                    :date="review.updated_at"
+                    :content="review.review"
+                    :showRating=true
+                    :showActions=true
+                    :rating="review.rating"
+                    @edit="editReview"
+                    @remove="removeReview"
+                    />
+                </div>
+                <div v-else>
+                    You have no reviews yet, go to Albums to Review
+                </div>
             </div>
         </div>
     </main>
@@ -113,6 +118,7 @@
             getUserReviews(){
                 axios.get(`${process.env.VUE_APP_URL}getUserReviews/${this.user.id}`, this.config).then((res)=>{
                     this.reviews = res.data
+                    console.log(this.reviews)
                 }).catch((error)=>{
                     console.log(error)
                 })

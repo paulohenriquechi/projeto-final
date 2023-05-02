@@ -6,10 +6,12 @@
                 <div class="input-container">
                     <label for="">Username</label>
                     <input type="text" v-model="formData.username">
+                    <p class="error" v-if="errors.username">{{ errors.username[0] }}</p>
                 </div>
                 <div class="input-container">
                     <label for="">Email</label>
                     <input type="email" v-model="formData.email">
+                    <p class="error" v-if="errors.email">{{ errors.email[0] }}</p>
                 </div>
                 <div class="input-container">
                     <div v-if="!pictureInput">
@@ -24,7 +26,8 @@
                 <div class="input-container">
                     <p>Insert your password to save the changes</p>
                     <label for="">Password</label>
-                    <input type="password" name="" id="">
+                    <input type="password" name="" id="" v-model="formData.password">
+                    <p class="error" v-if="errors.password">{{ errors.password[0] }}</p>
                 </div>
                 <div class="input-container">
                         <button id="button" type="button" @click.prevent="update">Update</button>
@@ -34,7 +37,7 @@
     </main>
 </template>
 <script>
-    import axios from 'axios'
+    import axios, { formToJSON } from 'axios'
     export default{
         name: "EditProfileView",
         data(){
@@ -42,6 +45,7 @@
                 pictureInput: false,
                 formData: {},
                 profilePicture: null,
+                errors: {}
             }
         },
         methods: {
@@ -70,6 +74,11 @@
             update(){
                 let form = new FormData()
                 form.append('image', this.profilePicture)
+                form.append('username', this.formData.username)
+                form.append('email', this.formData.email)
+                form.append('password', this.formData.password)
+                console.log(formToJSON(form))
+                // form.append('data', JSON.stringify(this.formData))
                 axios.post(`${process.env.VUE_APP_URL}editProfile`, form, {
                     headers: {
                         "Content-type": "multipart/form-data",
@@ -78,7 +87,8 @@
                 }).then((res)=>{
                     console.log(res)
                 }).catch((error)=>{
-                    console.log(error)
+                    this.errors = error.response.data.errors
+                    console.log(this.errors)
                 })
                 
             }

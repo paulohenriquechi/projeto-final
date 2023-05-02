@@ -30,10 +30,10 @@
           </ul>
         </div>
       </div>
-      <!-- <div class="spotify-container">
+      <div class="spotify-container">
         <h2 class="title">Stream</h2>
         <iframe :src="`https://open.spotify.com/embed/album/${albumInfo.spotify_url}?utm_source=generator&theme=0`" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-      </div> -->
+      </div>
       <div id="reviews">
         <h1 class="title">Reviews</h1>
         <div id="create-review">
@@ -92,7 +92,7 @@
           </div>
         </div> -->
         <Review v-for="review in reviews" :key="review.id"
-        image="https://pbs.twimg.com/media/Fti7MBYWYAA2cmn?format=jpg&name=small"
+        :image="'http://localhost:8000/storage/image/'+review.user_picture"
         :album="review.album"
         :title="review.username"
         :date="review.updated_at"
@@ -137,6 +137,7 @@
           this.dataForm.album = this.albumInfo.album_name
           this.songs = this.albumInfo.songs
           this.reviews = this.albumInfo.reviews
+          console.log(this.reviews)
         },
         authUser(){
           axios.post(`${process.env.VUE_APP_URL}auth`, null, this.config).then((res)=>{
