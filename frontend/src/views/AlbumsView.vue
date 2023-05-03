@@ -45,4 +45,11 @@
       padding: 10px 0px;
       gap: 10px;
     }
+
+    @media (min-width: 320px) and (max-width: 480px){
+      #album-grid{
+        display: flex;
+        flex-direction: column;
+      }
+  }
 </style>

@@ -47,4 +47,14 @@
         font-weight: 300;
         word-spacing: 8px;
     }
+
+    @media (min-width: 320px) and (max-width: 480px){
+        .banner-container{
+            /* background-size: contain; */
+            height: 50vh;
+        }
+        .text{
+            font-size: 2.5em;
+        }
+    }
 </style>

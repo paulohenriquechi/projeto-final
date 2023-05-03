@@ -156,4 +156,8 @@
         background-color: #3333339a;
         
     }
+
+    @media (min-width: 320px) and (max-width: 480px){
+
+    }
 </style>

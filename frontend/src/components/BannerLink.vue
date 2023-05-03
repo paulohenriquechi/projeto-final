@@ -50,4 +50,13 @@
         padding: 20px 40px;
         background-color: transparent;
     } */
+    @media (min-width: 320px) and (max-width: 480px){
+        .banner-container{
+            /* background-size: contain; */
+            height: 50vh;
+        }
+        .link{
+            font-size: 1.5em;
+        }
+    }
 </style>

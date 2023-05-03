@@ -34,7 +34,13 @@
         data(){ 
             return{
                 dataForm: {},
-                errors: {}
+                errors: {},
+                config: {
+                    headers:{
+                        "Content-type": "application/json",
+                        "Authorization": `Bearer ${localStorage.getItem('token')}`
+                    }
+                }
             }
         },
         methods: {
@@ -46,13 +52,26 @@
                 }).catch((error)=>{
                     this.errors = JSON.parse(error.response.request.response).errors
                 })
+            },
+            authUser(){
+                axios.post(`${process.env.VUE_APP_URL}auth`, null, this.config).then((res)=>{
+                    if(res.status === 200){
+                        console.log(res)
+                        this.$router.push({name: 'profile'})
+                    }
+                }).catch((error)=>{
+                    console.log(error)
+                })
             }
+        },
+        created(){
+            this.authUser()
         }
     }
 </script>
 <style scoped>
         #main-container{
-            background-image: url("https://e1.pxfuel.com/desktop-wallpaper/372/206/desktop-wallpaper-20-years-ago-alice-in-chains-perform-for-mtv-s-unplugged-layne-staley.jpg");
+            background-image: url("http://localhost:8000/storage/banners/login.jpg");
             background-size: cover;
             height: 100vh;
             display: flex;
@@ -141,6 +160,18 @@
         }
         .link:hover{
             color: #fff;
+        }
+
+        @media (min-width: 320px) and (max-width: 480px){
+            
+            #form-container{
+                width: auto;
+                height: auto;
+            }
+
+            .input-container{
+                width: 90%;
+            }
         }
 
 

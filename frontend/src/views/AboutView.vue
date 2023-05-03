@@ -1,7 +1,7 @@
 <template>
   <main id="main">
     <BannerText
-    style="background-image: url('https://pbs.twimg.com/media/Fd2aXFpVIAACFoO?format=jpg&name=4096x4096');"
+    style="background-image: url('http://localhost:8000/storage/banners/biography.jpg');"
       text="Biography"
     />
     <div id="main-container">
@@ -102,7 +102,7 @@
 
 <style scoped>
   #main-container{
-    width: 1000px;
+    width: 85vw;
     margin: 0 auto;
     padding: 0 20px;
   }
@@ -126,9 +126,21 @@
     display: flex;
   }
   .info-container>img{
-    width: 500px;
+    width: 35vw;
   }
   .info{
     padding: 0 20px;
+  }
+
+  @media (min-width: 320px) and (max-width: 480px){
+    #main-container{
+      width: 100%;
+    }
+    .info-container{
+      flex-direction: column;
+    }
+    .info-container>img{
+      width: 100%;
+    }
   }
 </style>

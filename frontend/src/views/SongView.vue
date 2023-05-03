@@ -93,4 +93,14 @@
     padding: 10px 0;
     text-align: center;
   }
+
+  @media (min-width: 320px) and (max-width: 480px){
+    #lyrics-container{
+      width: 100%;
+    }
+    .lyric{
+      word-break: break-word;
+      white-space: pre-wrap;
+    }
+  }
 </style>

@@ -25,6 +25,7 @@
   background-color: #000;
   color: #fff;
   box-sizing: border-box;
+  font-weight: 400;
 }
 .title{
       text-align: center;

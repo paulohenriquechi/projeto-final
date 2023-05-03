@@ -1,6 +1,6 @@
 <template>
     <div class="review-container">
-        <div>
+        <div class="left-container">
             <img class="image" :src="image" :alt="album">
             <div id="actions-container" v-if="showActions">
                 <button class="button" :value="reviewId" @click="$emit('edit', $event.target.value)">Edit Review</button>
@@ -15,9 +15,9 @@
                 <span class="review-date">
                     {{ new Date(date).toLocaleString('nl-NL').replaceAll('-', '/') }}
                 </span>
+                <p class="review-rating" v-if="showRating">Rating - {{ rating }}/10</p>
             </div>
             <div class="review-content-container">
-                <p v-if="showRating">Rating - {{ rating }}/10</p>
                 <p class="review-content">
                     {{ content }}
                 </p>
@@ -89,5 +89,43 @@ export default{
     .button:hover{
         background-color: #3333339a;
         
+    }
+    @media (min-width: 320px) and (max-width: 480px){
+        .review-container{
+            flex-direction: column;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .review{
+            width: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        .review-user{
+            width: 100%;
+            flex-direction: column;
+        }
+
+        .left-container{
+            width: 100%;
+            margin: 0 auto;
+            text-align: center;
+            border-bottom: 1px solid #353535;
+        }
+        .image{
+            margin: 0 auto;
+            padding: 0;
+            aspect-ratio: 1/1;
+        }
+        .review-content{
+            word-wrap: break-word;
+        }
+        .review-user, .review-title, .review-date, .review-rating,  .review-content{
+            padding: 5px 0;
+        }
+        .review-content{
+            border-top: 1px solid #353535;
+
+        }
     }
 </style>

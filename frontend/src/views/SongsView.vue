@@ -1,7 +1,7 @@
 <template>
     <main id="main">
       <BannerText
-        style="background-image: url('https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExZjJkM2Y3NTc0ZGZiZGM1ZjQ0NDA2OWM1NDJiZTQwNDcyYmRmOWU3NCZjdD1n/FTsKD27AsVbj5BTMBM/giphy.gif');"
+        style="background-image: url('http://localhost:8000/storage/banners/songs.gif');"
         text="Songs"
       />
       <div id="main-container">
@@ -72,6 +72,7 @@
     width: 10%;
   }
   .song-name, .album-name{
+    text-align: left;
     width: 35%;
     transition: all .5s ease-in-out;
     
@@ -88,6 +89,15 @@
   }
   .song-header-name, .song-header-album{
     width: 35%;
+  }
+  @media (min-width: 320px) and (max-width: 480px){
+    #song-container{
+      width: 95%;
+    }
+  .song-header-name, .song-header-album, .song-header-length{
+    width: fit-content;
+  }
+  
   }
 </style>
   

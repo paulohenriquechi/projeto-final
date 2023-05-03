@@ -244,7 +244,7 @@
 
   /* TESTE */
   #create-review{
-    width: 1000px;
+    /* width: 85%; */
     border: 1px solid #353535;
     margin: 10px 0;
   }
@@ -298,4 +298,42 @@
     text-decoration: underline;
     text-align: end;
   }
+
+  @media (min-width: 320px) and (max-width: 480px){
+    #main{
+      width: 100vw;
+    }
+
+    #album-description{
+      width: 100%;
+      padding: 0;
+    }
+    .description-paragraphs{
+      font-size: 1em;
+      padding: 10px;
+    }
+    .album-container{
+      flex-direction: column;
+    }
+    #left, #right{
+      width: 100%;
+      padding: 0;
+      margin: 0;
+    }
+    .album-cover{
+      width: inherit;
+    }
+
+    .spotify-container{
+      width: 90%;
+    }
+    #reviews{
+      width: 100%;
+    }
+    #create-review, .input-container{
+      width: 100%;
+    }
+  }
+
+
 </style>

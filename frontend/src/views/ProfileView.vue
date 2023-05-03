@@ -52,7 +52,7 @@
                 </form>
             </div>
 
-            <div>
+            <div id="reviews">
                 <h2 class="title">My Reviews</h2>
                 <div v-if="reviews!=0">
                     <Review v-for="review in reviews" :key="review.id"
@@ -243,5 +243,20 @@
     background-color: transparent;
     text-decoration: underline;
     text-align: end;
+    }
+
+    @media (min-width: 320px) and (max-width: 480px){
+        #user-info{
+            flex-direction: column;
+            margin: 10px;
+        }
+        #info, #img-container, #actions-container, .input-container, #main{
+            width: 100%;
+        }
+
+        #reviews{
+            padding: 0 10px;
+        }
+
     }
 </style>

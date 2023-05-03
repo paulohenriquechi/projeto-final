@@ -81,7 +81,7 @@
 </script>
 <style scoped>
         #main-container{
-            background-image: url("https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77701280174.jpg");
+            background-image: url("http://localhost:8000/storage/banners/register.jpg");
             background-size: cover;
             height: 100vh;
             display: flex;
@@ -172,6 +172,17 @@
             color: #fff;
         }
 
+        @media (min-width: 320px) and (max-width: 480px){
+            
+            #form-container{
+                width: auto;
+                height: auto;
+            }
+
+            .input-container{
+                width: 90%;
+            }
+        }
 
 
 

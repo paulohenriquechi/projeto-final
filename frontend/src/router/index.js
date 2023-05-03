@@ -36,12 +36,12 @@ const routes = [
   {
     path: '/register',
     name: 'register',
-    component: () => import(/* webpackChunkName: "about" */ '../views/RegisterView.vue'),
+    component: () => import(/* webpackChunkName: "about" */ '../views/RegisterView.vue')
   },
   {
     path: '/login',
     name: 'login',
-    component: () => import(/* webpackChunkName: "about" */ '../views/LoginView.vue'),
+    component: () => import(/* webpackChunkName: "about" */ '../views/LoginView.vue')
   },
   {
     path: '/profile',
@@ -66,13 +66,11 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+
 var isAuth = false
 router.beforeEach((to, from, next)=>{
-  // var isAuth = authUser()
   authUser()
-  console.log(isAuth)
   if(to.meta?.requireAuth){
-    console.log(to.name)
     if(isAuth){
       next()
     }else{
@@ -91,11 +89,9 @@ function authUser(){
       }
     }).then((res)=>{
     if(res.status === 200){
-      console.log("esta logado")
       isAuth = true
       return true
     }else{
-      console.log("nao esta logado")
       isAuth = false
       return false
     }
