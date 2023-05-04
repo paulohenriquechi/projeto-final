@@ -25,6 +25,10 @@
               {{ lyrics }}
             </p>
           </div>
+          <div>
+            <router-link to="/songs">Songs</router-link>
+            <router-link :to="'/albums/'+albumInfo.album_url">{{ albumInfo.album_name }}</router-link>
+          </div>
         </div>
       </div>
   </main>
@@ -57,6 +61,7 @@
           const res = await req.json()
           this.songInfo = res
           this.albumInfo = this.songInfo.albumInfo[0]
+          console.log(this.albumInfo)
           console.log(this.songInfo)
         }
       },
@@ -87,6 +92,7 @@
   #lyrics{
     padding: 10px;
     margin: 10px;
+    border-bottom: 1px solid #353535;
   }
   .lyric{
     white-space:pre;

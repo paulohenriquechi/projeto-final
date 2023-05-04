@@ -83,14 +83,14 @@
         #main-container{
             background-image: url("http://localhost:8000/storage/banners/register.jpg");
             background-size: cover;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
         }
         #form-container{
             width: 50%;
-            height: 85%;
+            min-height: 85%;
             background-color: rgba(0, 0, 0, 0.8);
             border: 1px solid #383837;
             padding: 20px;
@@ -103,6 +103,8 @@
             background-color: transparent;
             width: 75%;
             margin: 0 auto;
+                            margin: 10px auto;
+
         }
         .input-container>input, .input-container>button{
             width: 100%;
@@ -152,7 +154,6 @@
         .title{
             background-color: transparent;
             margin: 0;
-            font-weight: 300;
         }
         .message-container{
             text-align: center;
@@ -178,9 +179,16 @@
                 width: auto;
                 height: auto;
             }
+            #main-container{
+                min-height: 100vh;
+            }
+            .error{
+                font-size: .8em;
+            }
 
             .input-container{
                 width: 90%;
+                /* margin: 10px 0; */
             }
         }
 

@@ -14,11 +14,9 @@
                     <p class="error" v-if="errors.email">{{ errors.email[0] }}</p>
                 </div>
                 <div class="input-container">
-                    <div v-if="!pictureInput">
-                        <button class="button" @click.prevent="showPicture">Add Profile Picture</button>
-                    </div>
-                    <div v-else>
-                        <label for="">Upload Profile Picture</label>
+                    <label for="">Profile Picture</label>
+                    <button v-if="!pictureInput" class="button" @click.prevent="showPicture">Upload</button>
+                    <div v-else class="input-file">
                         <input type="file" name="" id="" @change="pictureFile">
                         <button class="button" @click.prevent="showPicture">Cancel</button>
                     </div>
@@ -30,7 +28,7 @@
                     <p class="error" v-if="errors.password">{{ errors.password[0] }}</p>
                 </div>
                 <div class="input-container">
-                        <button id="button" type="button" @click.prevent="update">Update</button>
+                        <button class="button" id="button" type="button" @click.prevent="update">Update</button>
                     </div>
             </form>
         </div>
@@ -50,7 +48,7 @@
         },
         methods: {
             getUserInfo(){
-                axios.post(`${process.env.VUE_APP_URL}auth`, null, {
+                axios.get(`${process.env.VUE_APP_URL}auth`, {
                     headers: {
                         "Content-type": "application/json",
                         "Authorization": `Bearer ${localStorage.getItem('token')}`
@@ -61,7 +59,7 @@
                         this.formData.email = res.data.email
                     }
                 }).catch((error)=>{
-                    console.log(error)
+                    console.clear
                 })
             },
             showPicture(){
@@ -69,7 +67,6 @@
             },
             pictureFile(event){
                 this.profilePicture = event.target.files[0]
-                console.log(this.profilePicture)
             },
             update(){
                 let form = new FormData()
@@ -77,18 +74,15 @@
                 form.append('username', this.formData.username)
                 form.append('email', this.formData.email)
                 form.append('password', this.formData.password)
-                console.log(formToJSON(form))
-                // form.append('data', JSON.stringify(this.formData))
                 axios.post(`${process.env.VUE_APP_URL}editProfile`, form, {
                     headers: {
                         "Content-type": "multipart/form-data",
                         "Authorization": `Bearer ${localStorage.getItem('token')}`
                     }
                 }).then((res)=>{
-                    console.log(res)
+                    this.$router.push({name: 'profile'})
                 }).catch((error)=>{
                     this.errors = error.response.data.errors
-                    console.log(this.errors)
                 })
                 
             }
@@ -99,15 +93,16 @@
     }
 </script>
 <style scoped>
-    #main{
-        height: 100vh;
-    }
-
     #main-container{
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            background-image: url("http://localhost:8000/storage/banners/edit.jpg");
+            background-size: cover;
+        }
+        label, h2, p{
+            background: transparent;
         }
 
     #form-container{
@@ -123,21 +118,22 @@
         }
     .input-container{
         width: 75%;
-        padding: 10px;
         margin: 10px auto;
-        display: flex;
-        flex-direction: column;
+        background-color: transparent;
     }
 
-    .input-container>input, .input-container>button{
+    .input-container>input, .input-container>button, .input-file>input{
             width: 100%;
             margin: 5px 0;
             padding: 10px;
             border-style: none;
             transition: all .2s linear;
             border: 1px solid #fff;
-            
-        }
+    }
+
+    .input-file{
+        background: transparent;
+    }
     .button{
         cursor: pointer;
         outline: hidden;
@@ -149,15 +145,40 @@
         border-style: none;
         transition: all .2s linear;
         border: 1px solid #fff;
-
-
     }
-    .button:hover{
+    .button:hover, input[type="file"]::file-selector-button:hover{
         background-color: #3333339a;
-        
     }
 
+    input[type="file"]::file-selector-button{
+        color: #fff;
+        background: transparent;
+        cursor: pointer;
+        border: none;
+        padding: .5em;
+        border: 1px solid #fff;
+        transition: all .2s linear;
+    }
+
+    .error{
+        color: darkred;
+        background-color: transparent;
+        text-decoration: underline;
+        text-align: end;
+    }
+    
     @media (min-width: 320px) and (max-width: 480px){
+            
+            #form-container{
+                width: auto;
+                height: auto;
+            }
 
-    }
+            .input-container{
+                width: 90%;
+            }
+            .error{
+                font-size: .8em;
+            }
+        }
 </style>

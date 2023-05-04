@@ -159,6 +159,9 @@
             .input-container{
                 width: 90%;
             }
+            .error{
+                font-size: .8em;
+            }
         }
 
 
