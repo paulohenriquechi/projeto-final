@@ -59,6 +59,7 @@
                     :reviewId="review.id"
                     :image="review.album_cover"
                     :album="review.album"
+                    :albumUrl="review.album_url"
                     :title="review.album"
                     :date="review.updated_at"
                     :content="review.review"
@@ -70,7 +71,9 @@
                     />
                 </div>
                 <div v-else>
-                    You have no reviews yet, go to Albums to Review
+                    You have no reviews yet, go to 
+                    <router-link to="/albums">Albums</router-link>
+                    to Review
                 </div>
             </div>
         </div>
@@ -117,6 +120,7 @@
             getUserReviews(){
                 axios.get(`${process.env.VUE_APP_URL}getUserReviews/${this.user.id}`, this.config).then((res)=>{
                     this.reviews = res.data
+                    console.log(this.reviews)
                 }).catch((error)=>{
                     console.clear()
                 })

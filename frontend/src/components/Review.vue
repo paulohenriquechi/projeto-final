@@ -9,7 +9,10 @@
         </div>
         <div class="review">
             <div class="review-user">
-                <h3 class="review-title">
+                <h3 class="review-title link" v-if="albumUrl">
+                    <router-link :to="'/albums/'+albumUrl">{{ title }}</router-link>   
+                </h3>
+                <h3 class="review-title" v-else>
                     {{ title }}
                 </h3>
                 <p class="review-rating" v-if="showRating">Rating - {{ rating }}/10</p>
@@ -31,6 +34,7 @@ export default{
     props: {
         image: String,
         album: String,
+        albumUrl: String,
         title: String,
         date: String,
         content: String,
@@ -70,6 +74,10 @@ export default{
   }
   .review-content{
     padding: 10px 0;
+  }
+  .link:hover{
+    text-decoration: underline;
+    color: #FFF;
   }
 
   .button{

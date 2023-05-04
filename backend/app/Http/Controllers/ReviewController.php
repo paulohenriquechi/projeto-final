@@ -39,6 +39,7 @@ class ReviewController extends Controller
         foreach($userReviews as $review){
             $albumCover = Album::where('album_name', $review->album)->firstOrFail();
             $review->album_cover = $albumCover->album_cover;
+            $review->album_url = $albumCover->album_url;
         }
         return $userReviews;
         // return response()->json(["reviews" => $userReviews]);

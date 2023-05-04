@@ -58,7 +58,7 @@
             </div>
             <div class="input-container">
               <label for="review-content">Review </label>
-              <textarea name="review-content" id="review-content" cols="30" rows="10" v-model="dataForm.review">
+              <textarea name="review-content" id="review-content" cols="30" rows="10" v-model="dataForm.review" placeholder="Write your review">
               </textarea>
               <p class="error" v-if="errors.review">{{ errors.review[0] }}</p>
             </div>
@@ -86,6 +86,8 @@
         :title="review.username"
         :date="review.updated_at"
         :content="review.review"
+        :showRating=true
+        :rating="review.rating"
         />
       </div>
     </main>
@@ -240,6 +242,7 @@
   #review-content{
     resize: none;
   }
+
   .input-container{
     width: 50%;
     padding: 10px;

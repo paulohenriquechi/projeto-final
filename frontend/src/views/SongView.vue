@@ -18,16 +18,20 @@
             </div>
             
           </div> -->
-          <iframe src="https://open.spotify.com/embed/track/6gZVQvQZOFpzIy3HblJ20F?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-          <h1 class="title">Lyrics</h1>
+          <h1 class="title">Stream</h1>
+          <iframe :src="`https://open.spotify.com/embed/track/${songInfo.spotify_url}?utm_source=generator`" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          <h2 class="title">Lyrics</h2>
           <div id="lyrics">
             <p class="lyric" v-for="(lyrics, index) in songInfo.lyrics" :key="index">
               {{ lyrics }}
             </p>
           </div>
-          <div>
-            <router-link to="/songs">Songs</router-link>
-            <router-link :to="'/albums/'+albumInfo.album_url">{{ albumInfo.album_name }}</router-link>
+          <div class="links-container">
+            <h2 class=" title">Explore</h2>
+            <div class="links">
+              <router-link to="/songs">Songs</router-link>
+              <router-link :to="'/albums/'+albumInfo.album_url">{{ albumInfo.album_name }}</router-link>              
+            </div>
           </div>
         </div>
       </div>
@@ -75,6 +79,10 @@
 </script>
 <style scoped>
 
+  .title{
+    border-bottom: 1px solid #353535;
+  }
+
   #lyrics-container{
     width: 50%;
     margin: 0 auto;
@@ -98,6 +106,22 @@
     white-space:pre;
     padding: 10px 0;
     text-align: center;
+  }
+
+  .links{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    margin: 10px;
+  }
+
+  .links>a{
+    transition: all .5s ease-in-out;
+    color: #999999;
+  }
+  .links>a:hover{
+    text-decoration: underline;
+    color: #FFF;
   }
 
   @media (min-width: 320px) and (max-width: 480px){

@@ -45,6 +45,10 @@
         border: 1px solid white;
         padding: 20px 40px;
         font-size: 3em;
+        transition: all .2s linear;
+    }
+    .link:hover{
+        background-color: rgba(0, 0, 0, 0.8);
     }
 
     @media (min-width: 320px) and (max-width: 480px){

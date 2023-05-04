@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('album');
             $table->json('lyrics')->nullable();
             $table->foreign('album')->references('album_name')->on('albums');
-            // $table->string('spotify_url');
+            $table->string('spotify_url')->nullable();
         });
     }
 
