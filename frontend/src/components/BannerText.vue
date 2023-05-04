@@ -37,7 +37,6 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        /* background-color: transparent; */
         background-color: rgba(0, 0, 0, 0.5);
     }
     .text{
@@ -50,7 +49,6 @@
 
     @media (min-width: 320px) and (max-width: 480px){
         .banner-container{
-            /* background-size: contain; */
             height: 50vh;
         }
         .text{

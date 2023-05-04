@@ -104,23 +104,21 @@
                 window.location.href = '/'
             },
             getUserInfo(){
-                axios.post(`${process.env.VUE_APP_URL}auth`, null, this.config).then((res)=>{
+                axios.get(`${process.env.VUE_APP_URL}auth`, this.config).then((res)=>{
                     if(res.status === 200){
                         this.isAuth = true
                         this.user = res.data
-                        console.log(res.data)
                         this.getUserReviews()
                     }
                 }).catch((error)=>{
-                    console.log(error)
+                    console.clear()
                 })
             },
             getUserReviews(){
                 axios.get(`${process.env.VUE_APP_URL}getUserReviews/${this.user.id}`, this.config).then((res)=>{
                     this.reviews = res.data
-                    console.log(this.reviews)
                 }).catch((error)=>{
-                    console.log(error)
+                    console.clear()
                 })
             },
             editReview(e){
@@ -129,14 +127,14 @@
                     this.dataForm = res.data
                     window.location.href = '#review'
                 }).catch((error)=>{
-                    console.log(error)
+                    console.clear()
                 })
             },
             removeReview(e){
                 axios.get(`${process.env.VUE_APP_URL}deleteReview/${e}`, this.config).then((res)=>{
                     this.getUserReviews()
                 }).catch((error)=>{
-                    console.log(error)
+                    console.clear()
                 })
             },
             updateReview(){
@@ -147,7 +145,6 @@
                     this.getUserReviews()
                 }).catch((error)=>{
                     this.errors = error.response.data.errors
-                    console.log(error)
                 })
             },
             cancelUpdate(){
@@ -183,9 +180,6 @@
         align-items: center;
         padding: 20px;
         text-align: center;
-    }
-    #info{
-        /* text-align: left; */
     }
     #info, #img-container, #actions-container{
         padding: 10px ;

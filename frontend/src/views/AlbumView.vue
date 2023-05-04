@@ -80,17 +80,6 @@
             </p>
           </div>
         </div>
-
-        <!-- <div class="review-container" v-for="review in reviews" :key="review.id">
-          <img src="https://pbs.twimg.com/media/Fti7MBYWYAA2cmn?format=jpg&name=small" alt="">
-          <div class="review">
-            <div class="review-user">
-              <h3>{{ review.username}}</h3>
-              <span>{{ new Date(review.updated_at).toLocaleString('nl-NL').replaceAll('-', '/') }}</span>
-            </div>
-              <p>{{ review.review }}</p>
-          </div>
-        </div> -->
         <Review v-for="review in reviews" :key="review.id"
         :image="'http://localhost:8000/storage/image/'+review.user_picture"
         :album="review.album"
@@ -137,10 +126,9 @@
           this.dataForm.album = this.albumInfo.album_name
           this.songs = this.albumInfo.songs
           this.reviews = this.albumInfo.reviews
-          console.log(this.reviews)
         },
         authUser(){
-          axios.post(`${process.env.VUE_APP_URL}auth`, null, this.config).then((res)=>{
+          axios.get(`${process.env.VUE_APP_URL}auth`, this.config).then((res)=>{
             if(res.status === 200){
               this.isAuth = true
               let reviewed = this.reviews.find((review) => review.user_id==res.data.id)
@@ -151,7 +139,7 @@
               }
             }
           }).catch((error)=>{
-            console.log(error)
+            console.clear()
           })
         },
         setReview(){

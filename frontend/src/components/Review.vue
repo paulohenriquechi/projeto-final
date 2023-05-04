@@ -46,7 +46,7 @@ export default{
 <style scoped>
     .review-container{
     border: 1px solid #353535;
-    margin: 0 auto;
+    margin: 20px auto;
     padding: 20px;
     display: flex;
   }
@@ -72,7 +72,6 @@ export default{
     padding: 10px 0;
   }
 
-  /* teste */
   .button{
         cursor: pointer;
         outline: hidden;
@@ -95,6 +94,7 @@ export default{
         .review-container{
             flex-direction: column;
             padding: 10px;
+            margin: 0;
             margin-bottom: 10px;
         }
         .review{

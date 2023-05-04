@@ -52,20 +52,7 @@
                 }).catch((error)=>{
                     this.errors = JSON.parse(error.response.request.response).errors
                 })
-            },
-            authUser(){
-                axios.post(`${process.env.VUE_APP_URL}auth`, null, this.config).then((res)=>{
-                    if(res.status === 200){
-                        console.log(res)
-                        this.$router.push({name: 'profile'})
-                    }
-                }).catch((error)=>{
-                    console.log(error)
-                })
             }
-        },
-        created(){
-            this.authUser()
         }
     }
 </script>

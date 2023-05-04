@@ -49,7 +49,7 @@ Route::get('getReviews/{album}', [ReviewController::class, 'getReviews']);
 //fazer review
 Route::middleware('auth:sanctum')->post('setReview', [ReviewController::class, 'setReview']);
 // verifica se o usuario está logado
-Route::middleware('auth:sanctum')->post('auth', [UserController::class, 'authUser']);
+Route::middleware('auth:sanctum')->get('auth', [UserController::class, 'authUser']);
 // desloga o usuario
 Route::middleware('auth:sanctum')->post('logout', [UserController::class, 'logout']);
 // ver reviews do usuário

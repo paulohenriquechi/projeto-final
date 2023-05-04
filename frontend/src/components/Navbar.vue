@@ -30,17 +30,16 @@
                         "Authorization": `Bearer ${localStorage.getItem('token')}`
                     }
                 }
-
             }
         },
         methods: {
             authUser(){
-                axios.post(`${process.env.VUE_APP_URL}auth`, null, this.config).then((res)=>{
+                axios.get(`${process.env.VUE_APP_URL}auth`, this.config).then((res)=>{
                     if(res.status === 200){
                         this.isAuth = true
                     }
                 }).catch((error)=>{
-                    // console.log(error)
+                    console.clear()
                 })
             }
         },

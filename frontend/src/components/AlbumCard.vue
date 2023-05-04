@@ -32,7 +32,6 @@
     .album-image-link, .album-image, .album-name, .album-link{
         transition: all .5s ease-in-out
     }
-    /* teste abaixo */
     .album-image-link{
         position: relative;
         overflow: hidden;
@@ -72,7 +71,6 @@
     .album-image-link:hover >.content.fade{
         opacity: 1;
     }
-    /* testeacima */
     .album-name{
         text-align: center;
         margin: 5px 0;
