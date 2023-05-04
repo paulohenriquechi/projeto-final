@@ -329,6 +329,7 @@
     }
     #reviews{
       width: 100%;
+      padding: 10px;
     }
     #create-review, .input-container{
       width: 100%;

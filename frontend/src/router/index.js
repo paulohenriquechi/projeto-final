@@ -36,12 +36,18 @@ const routes = [
   {
     path: '/register',
     name: 'register',
-    component: () => import(/* webpackChunkName: "about" */ '../views/RegisterView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/RegisterView.vue'),
+    meta: {
+      requireAuth: false
+    }
   },
   {
     path: '/login',
     name: 'login',
-    component: () => import(/* webpackChunkName: "about" */ '../views/LoginView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/LoginView.vue'),
+    meta: {
+      requireAuth: false
+    }
   },
   {
     path: '/profile',
@@ -67,38 +73,80 @@ const router = createRouter({
   routes
 })
 
-var isAuth = false
-router.beforeEach((to, from, next)=>{
-  authUser()
+// var isAuth = false
+// authUser()
+// if(to.meta?.requireAuth){
+//   if(isAuth){
+//     next()
+//   }else{
+//     next({name: 'login'})
+//   }
+// }else{
+//   next()
+// }
+router.beforeEach(async(to, from, next)=>{
+  // let token = localStorage.getItem('token');
+  const isAuth = await authUser()
+  // console.log(isAuth)
   if(to.meta?.requireAuth){
     if(isAuth){
       next()
     }else{
       next({name: 'login'})
     }
+    // console.log(token)
   }else{
+    if(isAuth){
+      if(to.name=='register'||to.name=='login'){
+        next({name: 'profile'})
+      }else{
+        next()
+      }
+    }
     next()
   }
 })
 
-function authUser(){
-  axios.post(`${process.env.VUE_APP_URL}auth`, null, {
+async function authUser(){
+  try {
+    const req = await fetch(`${process.env.VUE_APP_URL}auth`, {
+      method: "POST",
       headers: {
         "Content-type": "application/json",
         "Authorization": `Bearer ${localStorage.getItem('token')}`
-      }
-    }).then((res)=>{
-    if(res.status === 200){
-      isAuth = true
-      return true
-    }else{
-      isAuth = false
-      return false
-    }
-  }).catch((error)=>{
+      },
+      body: null
+    });
+    const res = await req.json();
+    // console.log(`resposta do authUser`)
+    // console.log(res)
+    return true
+    
+  } catch (error) {
+    // console.log("deu erro")
     return false
-  })
+  }
 }
+
+
+// function authUser(){
+//   axios.post(`${process.env.VUE_APP_URL}auth`, null, {
+      // headers: {
+      //   "Content-type": "application/json",
+      //   "Authorization": `Bearer ${localStorage.getItem('token')}`
+//       }
+//     }).then((res)=>{
+//     if(res.status === 200){
+//       isAuth = true
+//       return true
+//     }else{
+//       isAuth = false
+//       return false
+//     }
+//   }).catch((error)=>{
+//     return false
+//   })
+// }
 
 
 export default router

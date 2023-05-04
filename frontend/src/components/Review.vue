@@ -12,10 +12,10 @@
                 <h3 class="review-title">
                     {{ title }}
                 </h3>
+                <p class="review-rating" v-if="showRating">Rating - {{ rating }}/10</p>
                 <span class="review-date">
                     {{ new Date(date).toLocaleString('nl-NL').replaceAll('-', '/') }}
                 </span>
-                <p class="review-rating" v-if="showRating">Rating - {{ rating }}/10</p>
             </div>
             <div class="review-content-container">
                 <p class="review-content">
@@ -66,6 +66,7 @@ export default{
     display: flex;
     justify-content: space-between;
     padding: 10px 0;
+    border-bottom: 1px solid #353535;
   }
   .review-content{
     padding: 10px 0;

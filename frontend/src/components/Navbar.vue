@@ -73,4 +73,24 @@
         text-decoration: underline;
         cursor: pointer;
     }
+
+    /* teste */
+    @media (min-width: 320px) and (max-width: 480px){
+        #navbar{
+            display: none;
+            width: 100%;
+            padding: 10px;
+        }
+        #navbar-links{
+            display: flex;
+            flex-direction: column;
+        }
+        .link{
+            width: 100%;
+        }
+
+        #navbar.active{
+            display: flex;
+        }
+    }
 </style>

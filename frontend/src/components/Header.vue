@@ -1,12 +1,12 @@
 <template>
     <header id="header">
-        <img id="bannerImage" :src="bannerImage" :alt="altText">
+        <img id="bannerImage" :src="bannerImage" :alt="altText" @click="this.$router.push({name: 'home'})">
         <a href="#" class="toogle-button" @click="openClose">
             <span class="bar"></span>
             <span class="bar"></span>
             <span class="bar"></span>
         </a>
-        <nav id="navbar">
+        <!-- <nav id="navbar">
             <div id="navbar-links" v-if="isAuth">
                 <router-link class="link" to="/">Home</router-link>
                 <router-link class="link" to="/about">About</router-link>
@@ -22,8 +22,8 @@
                 <router-link class="link" to="/register">Register</router-link>
                 <router-link class="link" to="/login">Login</router-link>
             </div>
-    </nav>
-        <!-- <Navbar/> -->
+    </nav> -->
+        <Navbar/>
     </header>
 </template>
 <script>
@@ -45,6 +45,9 @@
         components: {
             Navbar
         },
+        updated(){
+            this.openClose()
+        }
     }
 </script>
 <style scoped>
@@ -76,7 +79,7 @@
     }
 
     /* navbar test */
-    #navbar{
+    /* #navbar{
         padding: 20px 0px;
         margin: 0px 0px;
         border-top: 1px solid #353535;
@@ -98,14 +101,14 @@
         color: #fff;
         text-decoration: underline;
         cursor: pointer;
-    }
+    } */
     /* teste */
 
     @media (min-width: 320px) and (max-width: 480px){
         #header{
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
+            align-items: center;
         }
         #bannerImage{
             width: 50%;
@@ -113,7 +116,7 @@
         .toogle-button{
             display: flex;
         }
-        #navbar{
+        /* #navbar{
             display: none;
             width: 100%;
             padding: 10px;
@@ -128,6 +131,6 @@
 
         #navbar.active{
             display: flex;
-        }
+        } */
     }
 </style>
