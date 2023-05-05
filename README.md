@@ -61,7 +61,7 @@ aqui por algum motivo não apareceu o iframe do spotify na screenshot
 ![](https://raw.githubusercontent.com/paulohenriquechi/assets/main/desktop//profileerror.png)
 
 ### Mobile
-As screenshots de mobile ficaram muito compridas, segue o mesmo padrão do desktop
+As screenshots de mobile ficaram muito compridas, então vou deixar o link para caso quem queira ver e não poluir o README
 https://github.com/paulohenriquechi/assets/tree/main/mobile
 
 
