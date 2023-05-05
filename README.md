@@ -32,36 +32,9 @@ As reviews estão atreladas a um album e um usuário através de chaves estrange
 
 ## :rocket: Layouts
 ### Desktop
-
-### Home
-![](https://raw.githubusercontent.com/paulohenriquechi/assets/main/desktop/home.png)
-### About
-![](https://raw.githubusercontent.com/paulohenriquechi/assets/main/desktop/biography.png)
-### Albums
-![](https://raw.githubusercontent.com/paulohenriquechi/assets/main/desktop/albums.png)
-### Songs
-![](https://raw.githubusercontent.com/paulohenriquechi/assets/main/desktop/songs1.png)
-### Album
-![](https://raw.githubusercontent.com/paulohenriquechi/assets/main/desktop/album1.png)
-![](https://github.com/paulohenriquechi/assets/blob/main/desktop/album2.png)
-![](https://raw.githubusercontent.com/paulohenriquechi/assets/main/desktop/albumguest.png)
-### Song
-![](https://raw.githubusercontent.com/paulohenriquechi/assets/main/desktop/song.png)
-aqui por algum motivo não apareceu o iframe do spotify na screenshot
-### Login
-![](https://raw.githubusercontent.com/paulohenriquechi/assets/main/desktop/login.png)
-![](https://raw.githubusercontent.com/paulohenriquechi/assets/main/desktop/loginerror.png)
-### Register
-![](https://raw.githubusercontent.com/paulohenriquechi/assets/main/desktop/register.png)
-![](https://raw.githubusercontent.com/paulohenriquechi/assets/main/desktop/registererror.png)
-### Profile
-![](https://raw.githubusercontent.com/paulohenriquechi/assets/main/desktop/profile.png)
-![](https://raw.githubusercontent.com/paulohenriquechi/assets/main/desktop/profileedit.png)
-![](https://raw.githubusercontent.com/paulohenriquechi/assets/main/desktop/profilepicture.png)
-![](https://raw.githubusercontent.com/paulohenriquechi/assets/main/desktop//profileerror.png)
+https://github.com/paulohenriquechi/assets/tree/main/desktop
 
 ### Mobile
-As screenshots de mobile ficaram muito compridas, então vou deixar o link para caso quem queira ver e não poluir o README
 https://github.com/paulohenriquechi/assets/tree/main/mobile
 
 
