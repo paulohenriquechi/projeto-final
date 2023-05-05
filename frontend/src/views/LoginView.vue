@@ -92,11 +92,6 @@
         }
         .input-container>input:focus{
             background-color: #3333339a;
-            /* 
-            border-style: none;
-            border: 1px solid #fff;
-            border-radius: 0px; */
-            /* border: 1px solid white; */
             outline: hidden;
             outline-style: none;
             outline-width: 0;
@@ -117,14 +112,12 @@
         }
         .error{
             color: darkred;
-            /* margin-top: 5px; */
             background-color: transparent;
             text-decoration: underline;
             text-align: end;
         }
         label{
             background: transparent;
-            /* padding: 0 10px; */
         }
         .title{
             background-color: transparent;
@@ -163,34 +156,4 @@
                 font-size: .8em;
             }
         }
-
-
-        /* #left{
-            width: 50%;
-            border: 1px solid #fff;
-        }
-        #left>img{
-            width: 100%;
-            height: 100%;
-        }
-        #right{
-            width: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid white;
-        }
-        form{
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-        }
-        input, button{
-            margin: 10px;
-            padding: 10px;
-            border-style: none;
-            border: 1px solid #fff;
-            width: 100%;
-        } */
 </style>

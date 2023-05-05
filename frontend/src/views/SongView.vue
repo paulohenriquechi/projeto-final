@@ -6,18 +6,6 @@
       />
       <div class="main-container">
         <div id="lyrics-container">
-          <!-- <div id="song-container">
-            <img id="song-image" :src="albumInfo.album_cover" alt="">
-
-            <div id="album-info">
-              <h1>{{ songInfo.song_name }}</h1>
-              <p id="release_year">{{ albumInfo.release_year }}</p>
-              <p>Track #{{ songInfo.song_number }} on {{ songInfo.album }}</p>
-              <p>{{ songInfo.length }}</p>
-              
-            </div>
-            
-          </div> -->
           <h1 class="title">Stream</h1>
           <iframe :src="`https://open.spotify.com/embed/track/${songInfo.spotify_url}?utm_source=generator`" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
           <h2 class="title">Lyrics</h2>
@@ -29,25 +17,13 @@
           <div class="links-container">
             <h2 class=" title">Explore</h2>
             <div class="links">
-              <router-link to="/songs">Songs</router-link>
-              <router-link :to="'/albums/'+albumInfo.album_url">{{ albumInfo.album_name }}</router-link>              
+              <router-link to="/songs">&lt; &lt; Songs</router-link>
+              <router-link :to="'/albums/'+albumInfo.album_url">{{ albumInfo.album_name }} 	&gt; 	&gt;</router-link>              
             </div>
           </div>
         </div>
       </div>
   </main>
-
-    <!-- <div class="about">
-    <pre>{{ $route }}</pre>
-    <h1><router-link :to="'../albums/'+albumInfo.album_url">{{ albumInfo.album_name }}</router-link></h1>
-    <img width="250" :src="albumInfo.album_cover" alt="">
-      <h2>{{ songInfo.song_name }}</h2>
-      <p>{{ songInfo.length }}</p>
-      <h3>Lyrics</h3>
-      <div v-for="(lyrics, index) in songInfo.lyrics" :key="index">
-        <p class="song">{{ lyrics }}</p>
-      </div>
-    </div> -->
 </template>
 <script>
     import BannerText from '../components/BannerText.vue'
@@ -65,8 +41,6 @@
           const res = await req.json()
           this.songInfo = res
           this.albumInfo = this.songInfo.albumInfo[0]
-          console.log(this.albumInfo)
-          console.log(this.songInfo)
         }
       },
       mounted(){
@@ -81,10 +55,11 @@
 
   .title{
     border-bottom: 1px solid #353535;
+    padding: 10px 0 15px;
   }
 
   #lyrics-container{
-    width: 50%;
+    width: 75%;
     margin: 0 auto;
     padding: 20px;
   }
@@ -131,6 +106,10 @@
     .lyric{
       word-break: break-word;
       white-space: pre-wrap;
+    }
+    .links{
+      flex-direction: column;
+      text-align: center;
     }
   }
 </style>

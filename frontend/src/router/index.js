@@ -5,39 +5,58 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: HomeView,
+    meta:{
+      title: "Home - Alice in Chains"
+    }
   },
   {
     path: '/about',
     name: 'about',
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue'),
+    meta:{
+      title: "About - Alice in Chains"
+    }
   },
   {
     path: '/albums',
     name: 'albums',
-    component: () => import(/* webpackChunkName: "about" */ '../views/AlbumsView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/AlbumsView.vue'),
+    meta:{
+      title: "Albums - Alice in Chains"
+    }
   },
   {
     path: '/albums/:album',
     name: 'album',
-    component: () => import(/* webpackChunkName: "about" */ '../views/AlbumView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/AlbumView.vue'),
+    meta:{
+      title: "Album - Alice in Chains"
+    }
   },
   {
     path: '/songs',
     name: 'songs',
-    component: () => import(/* webpackChunkName: "about" */ '../views/SongsView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/SongsView.vue'),
+    meta:{
+      title: "Songs - Alice in Chains"
+    }
   },
   {
     path: '/songs/:song',
     name: 'song',
-    component: () => import(/* webpackChunkName: "about" */ '../views/SongView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/SongView.vue'),
+    meta:{
+      title: "Song - Alice in Chains"
+    }
   },
   {
     path: '/register',
     name: 'register',
     component: () => import(/* webpackChunkName: "about" */ '../views/RegisterView.vue'),
     meta: {
-      requireAuth: false
+      requireAuth: false,
+      title: "Register - Alice in Chains"
     }
   },
   {
@@ -45,7 +64,8 @@ const routes = [
     name: 'login',
     component: () => import(/* webpackChunkName: "about" */ '../views/LoginView.vue'),
     meta: {
-      requireAuth: false
+      requireAuth: false,
+      title: "Login - Alice in Chains"
     }
   },
   {
@@ -53,7 +73,8 @@ const routes = [
     name: 'profile',
     component: () => import(/* webpackChunkName: "about" */ '../views/ProfileView.vue'),
     meta: {
-      requireAuth: true
+      requireAuth: true,
+      title: "Profile - Alice in Chains"
     }
   },
   {
@@ -61,13 +82,15 @@ const routes = [
     name: 'edit',
     component: () => import(/* webpackChunkName: "about" */ '../views/EditProfileView.vue'),
     meta: {
-      requireAuth: true
+      requireAuth: true,
+      title: "Profile Edit - Alice in Chains"
     }
   },
   {
     path: '/:pathMatch(.*)*',
     name: 'pagenotfound',
-    component: () => import(/* webpackChunkName: "about" */ '../views/PageNotFoundView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/PageNotFoundView.vue'),
+    title: "404 Not Found - Alice in Chains"
   }
   
 ]
@@ -78,6 +101,7 @@ const router = createRouter({
 })
 
 router.beforeEach(async(to, from, next)=>{
+  document.title = to.meta.title
   const isAuth = await authUser()
   if(to.meta?.requireAuth){
     if(isAuth){

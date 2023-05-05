@@ -12,15 +12,12 @@ class UserController extends Controller
 {
     function register(Request $request){
         $user = $request->validate([
-            //regex nome regex:/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/
-            //regex user regex:/(^([a-zA-z]+)(\d+)?$)/u
             'username' => 'required|alpha_num|max:255|unique:users,username',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8',
             'password_confirmation' => 'required|min:8|same:password',
         ],[
             'username.required' => 'The username field is required',
-            // 'username.regex:' => 'The username field must be a valid',
             'username.max' => 'The username max length is 255',
             'username.unique' => 'The username has already been taken'
         ]);
@@ -54,10 +51,6 @@ class UserController extends Controller
         return $request->user();
     }
 
-    // $imageName = $request->name;
-    // $imageType = $request->type;
-    // return response()->json($request->all());
-    // return($imageType);
     function editProfile(Request $request){
         $user = Auth::user();
         $newInfo = $request->validate([
@@ -101,33 +94,6 @@ class UserController extends Controller
             $error = ["The credentials provided are invalid"];
             return response(['errors' => ['password' => $error]], 422);
         }
-
-        // return $newInfo;
-        // $data = json_decode($request->data);
-        // if(Hash::check($data->password, $user->password)){
-        //     if($data->username!=$user->username){
-
-
-        //     }
-        //     if($data->email!=$user->email){
-
-        //     }
-        //     return $user;
-        // }else{
-        //     return "senha não confere";
-        // }
-
-        // if($request->hasFile('image')&&$request->File('image')->isValid()){
-        //     $file = $request->image;
-        //     $fileExtension = $file->extension();
-        //     $fileName = md5($file->getClientOriginalName().strtotime("now")).".".$fileExtension;
-                    // $file->move(public_path("image"), $fileName);
-        //     Storage::putFileAs('public/image', $file, $fileName);
-        //     $user->picture = $fileName;
-        //     $user->save();
-        //     return $user;
-        // }
-
 
     }
 

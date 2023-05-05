@@ -14,7 +14,6 @@ class SongController extends Controller
             $albumInfo = Album::where('album_name', $song->album)->get();
             $song->albumInfo = $albumInfo;
         }
-        // ->all()
         return $songs;
     }
 

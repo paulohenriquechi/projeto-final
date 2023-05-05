@@ -1,13 +1,9 @@
-[
+
     {
         "name": "Alice in Chains",
-        "location": [
-            {
-                "country": "United States",
-                "state": "Washington",
-                "city": "Seattle"
-            }
-        ],
+        "country": "United States",
+        "state": "Washington",
+        "city": "Seattle",
         "members": [
             {
                 "pastMembers": [
@@ -53,4 +49,3 @@
             "Alice in Chains is also noted for the unique vocal harmonies of Staley (or DuVall) and Cantrell, which included overlapping passages, dual lead vocals, and trademark harmonies typically separated by a major third. Cantrell said it was Staley who gave him the self-assurance to sing his own songs. Alyssa Burrows said the band's distinctive sound 'came from Staley's vocal style and his lyrics dealing with personal struggles and addiction'. Staley's songs were often considered 'dark', with themes such as drug abuse, depression, and suicide, while Cantrell's lyrics often dealt with personal relationships."
         ]
     }
-]

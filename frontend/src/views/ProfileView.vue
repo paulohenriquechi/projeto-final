@@ -70,10 +70,12 @@
                     @remove="removeReview"
                     />
                 </div>
-                <div v-else>
-                    You have no reviews yet, go to 
-                    <router-link to="/albums">Albums</router-link>
-                    to Review
+                <div v-else class="no-reviews">
+                    <h2>
+                        You have no reviews yet, go to 
+                        <router-link class="link" to="/albums">Albums</router-link>
+                        to Review
+                    </h2>
                 </div>
             </div>
         </div>
@@ -102,9 +104,12 @@
         },
         methods: {
             logout(){
-                axios.get(`${process.env.VUE_APP_URL}logout`, this.config)
-                localStorage.removeItem('token')
-                window.location.href = '/'
+                let option = confirm(`Do you really want to logout?`)
+                if(option){
+                    axios.get(`${process.env.VUE_APP_URL}logout`, this.config)
+                    localStorage.removeItem('token')
+                    window.location.href = '/'
+                }
             },
             getUserInfo(){
                 axios.get(`${process.env.VUE_APP_URL}auth`, this.config).then((res)=>{
@@ -120,7 +125,6 @@
             getUserReviews(){
                 axios.get(`${process.env.VUE_APP_URL}getUserReviews/${this.user.id}`, this.config).then((res)=>{
                     this.reviews = res.data
-                    console.log(this.reviews)
                 }).catch((error)=>{
                     console.clear()
                 })
@@ -135,11 +139,14 @@
                 })
             },
             removeReview(e){
-                axios.get(`${process.env.VUE_APP_URL}deleteReview/${e}`, this.config).then((res)=>{
-                    this.getUserReviews()
-                }).catch((error)=>{
-                    console.clear()
-                })
+                let option = confirm(`Do you really want to delete your review?`)
+                if(option){
+                    axios.get(`${process.env.VUE_APP_URL}deleteReview/${e}`, this.config).then((res)=>{
+                        this.getUserReviews()
+                    }).catch((error)=>{
+                        console.clear()
+                    })
+                }
             },
             updateReview(){
                 axios.post(`${process.env.VUE_APP_URL}updateReview`, this.dataForm, this.config).then((res)=>{
@@ -237,12 +244,28 @@
 
   .error{
     color: darkred;
-    /* margin-top: 5px; */
     background-color: transparent;
     text-decoration: underline;
     text-align: end;
     }
+    .no-reviews{
+        border: 1px solid #353535;
+        height: 50vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 40px;
+    }
 
+    .link{
+    text-decoration: underline;
+    color: #999999;
+    transition: all .5s ease-in-out;
+  }
+
+  .link:hover{
+    color: #fff;
+  }
     @media (min-width: 320px) and (max-width: 480px){
         #user-info{
             flex-direction: column;

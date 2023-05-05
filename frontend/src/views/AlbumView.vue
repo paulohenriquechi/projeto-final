@@ -80,15 +80,23 @@
             </p>
           </div>
         </div>
-        <Review v-for="review in reviews" :key="review.id"
-        :image="'http://localhost:8000/storage/image/'+review.user_picture"
-        :album="review.album"
-        :title="review.username"
-        :date="review.updated_at"
-        :content="review.review"
-        :showRating=true
-        :rating="review.rating"
-        />
+        <div v-if="reviews!=0">          
+          <Review v-for="review in reviews" :key="review.id"
+          :image="'http://localhost:8000/storage/image/'+review.user_picture"
+          :album="review.album"
+          :title="review.username"
+          :date="review.updated_at"
+          :content="review.review"
+          :showRating=true
+          :rating="review.rating"
+          />
+        </div>
+        <div v-else class="no-reviews">
+          <h2>
+            This album has no reviews yet
+          </h2>
+          <p>Be the first to review {{ albumInfo.album_name }}</p>
+        </div>
       </div>
     </main>
 </template>
@@ -184,7 +192,6 @@
   #tracklist, #tracklist-title{
     margin: 10px 0;
   }
-  /* TesteEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE */
   #album-description{
     width: 1000px;
     margin: 0 auto;
@@ -199,33 +206,6 @@
     margin: 0 auto;
     width: 1000px;
   }
-  /* .review-container{
-    border: 1px solid #353535;
-    margin: 0 auto;
-    padding: 20px;
-    display: flex;
-  }
-  .review-container>img{
-    width: 20%;
-    border-radius: 50%;
-    height: 20%;
-  }
-  .review-container>.review{
-    width: 80%;
-  }
-  .review, .review-container>img{
-    padding: 10px;
-    margin: 0 10px;
-  }
-  .review-user{
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 0;
-  }
-  .review>p{
-    padding: 10px 0;
-    
-  } */
   #reviews{
     width: 1000px;
     margin: 10px auto;
@@ -290,6 +270,17 @@
     text-align: end;
   }
 
+  
+  .no-reviews{
+        border: 1px solid #353535;
+        height: 50vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 40px 0;
+    }
+
   @media (min-width: 320px) and (max-width: 480px){
     #main{
       width: 100vw;
@@ -324,6 +315,10 @@
     }
     #create-review, .input-container{
       width: 100%;
+    }
+    .no-reviews{
+      padding: 20px;
+      text-align: center;
     }
   }
 

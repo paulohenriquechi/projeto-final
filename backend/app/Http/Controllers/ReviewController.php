@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Album;
 use App\Models\Review;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
@@ -42,7 +41,6 @@ class ReviewController extends Controller
             $review->album_url = $albumCover->album_url;
         }
         return $userReviews;
-        // return response()->json(["reviews" => $userReviews]);
     }
     function updateReview(Request $request){
         $review = $request->validate([

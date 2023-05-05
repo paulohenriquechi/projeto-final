@@ -1,6 +1,6 @@
 <template>
     <footer id="footer">
-        <p>
+        <p class="text">
             © 2023 ALICE IN CHAINS. ALL RIGHTS RESERVED. PRIVACY POLICY.
             DESIGN & DEVELOPMENT BY PAULO HENRIQUE CHI
         </p>
@@ -19,5 +19,8 @@
         justify-content: center;
         padding: 20px;
         border-top: 1px solid #353535;
+    }
+    .text{
+        text-align: center;
     }
 </style>
